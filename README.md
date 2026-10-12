@@ -82,7 +82,7 @@ The public interactive product preview (`site/index.html`) is separate from the
 full Next.js / FastAPI / PostgreSQL application. Once repository Pages is enabled
 (Settings → Pages → Source: GitHub Actions), the preview deploy workflow can publish
 it to `https://faridbagheri.github.io/PipMora/`. The preview displays only synthetic
-example data and does not provide accounts or stored trades.
+example data and does not provide accounts or database-backed trades. Its [interactive trading lab](site/lab.html) demonstrates simulated orders, replay, journal, and rule-based coaching. Lab activity is held only in each visitor's browser local storage and must not be presented as the authenticated application.
 
 The complete application has a `render.yaml` Blueprint with two services and a
 managed PostgreSQL database. It uses a same-origin Next.js `/api` gateway to keep
