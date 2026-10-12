@@ -77,7 +77,9 @@
 .market-mini .positive{color:#0a9c80!important}
 .market-mini .negative{color:#d3455d!important}
 @media(max-width:1000px){.landing .hero-grid,.market-snapshot{grid-template-columns:1fr}.landing .hero{padding:60px 0}.landing .hero h1{max-width:780px}.landing .navlinks{gap:14px}}
+@media(max-width:920px){.landing .navlinks{display:none}}
 @media(max-width:700px){.landing .nav .container{height:68px}.landing .navlinks{display:none}.landing .nav .button{padding:10px 13px;font-size:12px}.landing .hero h1{font-size:clamp(45px,11vw,62px)}.landing .section{padding:62px 0}.landing .features{grid-template-columns:1fr}.landing .chart-card{padding:15px}.landing .large-chart{height:220px}.landing .hero-grid{gap:28px}.landing .stats{grid-template-columns:repeat(3,minmax(0,1fr))}.landing .stat{padding:10px}.landing .stat strong{font-size:14px}.market-mini-grid{grid-template-columns:1fr 1fr}.landing .market-ticker .tick-item{min-width:172px;padding:10px 14px}}
+.landing,.terminal{color-scheme:light}
 /* Market terminal: same product language, but the existing simulated orders and journal stay functional. */
 .terminal{background:#f5f7fb;color:#121b2d;--bg:#f5f7fb;--text:#172132;--muted:#728096;--border:#e3e8f0}
 .terminal header{background:white;border-bottom:1px solid #e2e8f2;padding-top:12px;padding-bottom:12px;position:sticky;top:0;z-index:10;box-shadow:0 1px 2px #20344c0b}
