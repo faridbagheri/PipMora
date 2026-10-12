@@ -19,12 +19,18 @@ PipMora is an educational, full-stack Forex research and paper-trading MVP. It c
 - One synthetic, look-ahead-safe market replay with incremental candles, a gated macro event, simulated positions and journal handoff.
 - Docker Compose, initial Alembic migration, API documentation at `/docs`, and GitHub Actions tests and frontend build.
 
-## Live Forex charts (separate from demo trading)
+## Market data provenance and update behavior
 
-- Public GitHub Pages market view: [site/markets.html](site/markets.html) (`https://faridbagheri.github.io/PipMora/markets.html`).
-- Next.js market view: `/live-charts`; the homepage also embeds EUR/USD and GBP/USD charts.
-- Uses the official TradingView Advanced Chart embed with provider attribution. Forex feeds are described as real-time by TradingView, subject to data availability, symbol/venue, and the visitor's connection. If the third-party script is blocked, users can open the TradingView symbol links.
-- Embeds require internet access; no data is downloaded into PipMora's database or sent to the paper-trading engine. The synthetic market ticker and demo account positions remain **explicitly labeled synthetic**. Do not confuse third-party market charts with the simulator's execution rate.
+PipMora now embeds official **TradingView provider widgets** for six Forex pairs on the public website, the Next.js homepage, and the market screens of the authenticated application. These third-party widgets provide continuously updated quotes and charts **while the applicable Forex markets are trading**, subject to their own feed availability and market hours:
+
+- EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD and EUR/GBP.
+- Public Pages: homepage ticker, EUR/USD overview chart, six-pair market overview, multi-chart market page, provider economic calendar, and a live watchlist on the trading-lab page.
+- Next.js: market ticker, hero symbol chart, Forex overview, public charts, calendar, authenticated dashboard, Markets, and Market Analysis. The market page includes six individual interactive provider charts.
+- Attribution and links to TradingView are retained; provider iframes may fail if visitors block third-party scripts or have no internet. No unverified numeric fallback is shown.
+
+**Important limitation:** Embedded TradingView widgets are *display-only*. TradingView does not provide a downloadable price API through these widgets. Paper-trading entry, stops, P/L, replay, the journal, and trade-derived performance graphs continue to use **separate synthetic/demo values or persisted user transactions**. This is intentional: a live-looking graph must not be misrepresented as the executable quote that created a simulated trade. Historical replay is intentionally not live. The current educational AI Coach does not claim real-time market evidence. A real-time quote, candle, and event **backend ingestion API**, with licensing and credentials, is still required before those server-side features can use live market data.
+
+The GitHub Pages version cannot host FastAPI or PostgreSQL. Launching the authenticated app requires separate server/database hosting and security review. See [deployment](docs/DEPLOYMENT.md).
 
 ## Architecture
 
