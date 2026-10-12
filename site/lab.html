@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080f20"><meta name="description" content="PipMora interactive synthetic Forex paper-trading demonstration.">
+<meta name="theme-color" content="#080f20"><link rel="icon" href="./assets/pipmora-mark.svg" type="image/svg+xml"><link rel="stylesheet" href="./market-live.css"><meta name="description" content="PipMora interactive synthetic Forex paper-trading demonstration.">
 <title>PipMora | Interactive Demo Trading Lab</title>
 <style>
 :root{color-scheme:dark;--bg:#080e1b;--panel:#111c30;--panel2:#16253e;--border:#2a3953;--text:#ecf4ff;--muted:#a5b8d1;--blue:#6296ff;--teal:#46d5c4;--red:#fc8497}
@@ -25,6 +25,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:14px;pa
 <header><a class="brand" href="./index.html" aria-label="PipMora home"><img class="pip-mark" src="./assets/pipmora-mark.svg" alt="">Pip<b>Mora</b></a><a class="back" href="./index.html">← Back to website</a><a class="back" href="./markets.html">Live Forex charts ↗</a><span class="pill">SYNTHETIC TRADING TERMINAL</span></header>
 <div class="container">
 <div class="notice"><strong>SYNTHETIC DEMONSTRATION DATA.</strong> No live market feed, brokerage orders, financial advice, actual AI model or server accounts. Demo positions are saved only in this browser's local storage; this is not the authenticated PipMora application.</div>
+<section class="lab-live-section" aria-label="External live quotes"><div class="row"><div><h2>Real-market Forex watchlist</h2><p>Provider-supplied quotes refresh independently. They do not set entry, stop, P/L or outcomes in the synthetic replay below.</p></div><a class="btn primary" href="./markets.html">All live Forex charts ↗</a></div><div class="lab-live-overview"><div class="tradingview-widget-container" style="height:100%;width:100%"><div class="tradingview-widget-container__widget" style="height:calc(100% - 30px);width:100%"></div><div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/markets/currencies/" target="_blank" rel="noopener nofollow">Live Forex prices</a> by TradingView</div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>{"colorTheme":"light","dateRange":"1D","locale":"en","showFloatingTooltip":true,"showChart":false,"showSymbolLogo":false,"isTransparent":false,"width":"100%","height":"100%","tabs":[{"title":"Forex","symbols":[{"s":"FX:EURUSD","d":"EUR/USD"},{"s":"FX:GBPUSD","d":"GBP/USD"},{"s":"FX:USDJPY","d":"USD/JPY"},{"s":"FX:USDCHF","d":"USD/CHF"},{"s":"FX:AUDUSD","d":"AUD/USD"},{"s":"FX:EURGBP","d":"EUR/GBP"}]}]}</script></div></div></section>
 <div class="top"><div><h1>Trade. Reflect. Improve.</h1><p class="sub">Walk through a simulated Forex decision from chart to journal to evidence-led coaching.</p></div><button class="btn" id="reset">Reset demo</button></div>
 <div class="metrics">
 <div class="card metric"><span>Virtual cash balance</span><strong id="balance">$10,000.00</strong></div>
