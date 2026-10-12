@@ -48,3 +48,20 @@
 .provider-app-banner{border:1px solid #d8e5f9;border-radius:8px;color:#2c5d8e;background:#edf4ff;font-size:12px;padding:12px 15px;margin:13px 0 21px}
 :root[data-theme='dark'] .provider-app-banner{color:#c6d6ef;background:#203b62;border-color:#38547a}
 @media(max-width:800px){.provider-home-grid,.provider-app-grid{grid-template-columns:1fr}.provider-home-context{padding:55px 0}}
+
+/* Five-decimal source-validated Forex quotes; header is a separate selectable TradingView chart. */
+.precise-ticker{width:100%;overflow-x:auto;scrollbar-width:thin;background:#fff}
+.precise-ticker-track{display:flex;min-width:max-content;width:100%;justify-content:space-between}
+.precise-ticker-item{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;padding:13px 16px;border-right:1px solid #e2e9f3;min-width:200px;flex:1;white-space:nowrap;color:#101828;font-variant-numeric:tabular-nums}
+.precise-ticker-item:hover,.precise-ticker-item:focus-visible{background:#edf4ff;outline:2px solid #2962ff;outline-offset:-2px}
+.precise-pair{font-size:13px;font-weight:780}.precise-rate{font-size:13px;font-weight:650}
+.precise-change{font-size:12px;font-weight:770;color:#778399}.precise-change.up{color:#008a70}.precise-change.down{color:#d53d53}
+.precise-market-state{font-size:10px;color:#77869a;font-weight:650}.precise-market-state.is-live{color:#008a70}
+.provider-home-source a{color:#2962ff;font-weight:680}
+.hero-pair-controls{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.hero-pair-controls label{font-size:11px;font-weight:670;color:#718097}
+.hero-pair-controls select{background:#fff;border:1px solid #cbd5e5;border-radius:8px;color:#1b2a43;font:700 13px Inter,system-ui,sans-serif;padding:8px 22px 8px 10px;cursor:pointer}
+.hero-pair-controls select:focus-visible{outline:2px solid #2962ff;outline-offset:2px}
+.hero-chart-source{margin:9px 4px 0;color:#728199;font-size:11px;line-height:1.4}
+.hero-chart-source a{color:#2962ff;font-weight:700}
+@media(max-width:740px){.precise-ticker-item{min-width:210px;padding:11px 13px}.provider-home-label{align-items:flex-start;flex-wrap:wrap;gap:8px}.hero-pair-controls label{display:none}}
