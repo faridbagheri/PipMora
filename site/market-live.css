@@ -28,3 +28,24 @@
 .live-price-source{font-size:11px;color:#6c7b90}
 @media(max-width:950px){.landing .market-snapshot,.market-live-overview{grid-template-columns:1fr}.provider-overview{height:460px}}
 @media(max-width:650px){.live-hero-widget{height:310px}.provider-ticker{min-height:80px}.provider-tag{font-size:8px}.provider-calendar{height:470px}.provider-overview{height:430px}.market-live-overview{gap:12px}.market-overview-chart,.market-calendar-chart{height:420px}}
+
+/* Compact real-quote ticker: no fabricated placeholder numbers or provider-controlled rounding. */
+.precise-ticker{width:100%;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;background:#fff}
+.precise-ticker-track{display:flex;min-width:max-content;width:100%;justify-content:space-between}
+.precise-ticker-item{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;padding:13px 16px;border-right:1px solid #e2e9f3;min-width:200px;flex:1;white-space:nowrap;color:#101828;font-variant-numeric:tabular-nums;transition:background .15s}
+.precise-ticker-item:hover,.precise-ticker-item:focus-visible{background:#edf4ff;outline:2px solid #2962ff;outline-offset:-2px}
+.precise-pair{font-size:13px;font-weight:780}
+.precise-rate{font-size:13px;font-weight:650}
+.precise-change{font-size:12px;font-weight:780;color:#768295}
+.precise-change.up{color:#008a70}
+.precise-change.down{color:#dd3852}
+.precise-market-state{font-size:9px;color:#77869a;padding-left:1px;font-weight:650}
+.precise-ticker-item.is-live .precise-market-state{color:#008a70}
+.provider-disclaimer a{color:#2962ff;font-weight:650}
+.hero-pair-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.hero-pair-controls label{font-size:11px;font-weight:670;color:#718097}
+.hero-pair-controls select{background:#fff;border:1px solid #cbd5e5;border-radius:8px;color:#1b2a43;font:700 13px Inter,system-ui,sans-serif;padding:8px 28px 8px 10px;cursor:pointer}
+.hero-pair-controls select:focus-visible{outline:2px solid #2962ff;outline-offset:2px}
+.hero-chart-source{margin:9px 4px 0;color:#728199;font-size:11px;line-height:1.4}
+.hero-chart-source a{color:#2962ff;font-weight:700}
+@media(max-width:740px){.precise-ticker-item{min-width:210px;padding:11px 13px}.landing .live-hero .card-head{align-items:flex-start;flex-wrap:wrap;gap:8px}.hero-pair-controls label{display:none}.hero-pair-controls select{padding:7px 22px 7px 8px;font-size:12px}}
