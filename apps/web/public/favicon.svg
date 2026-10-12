@@ -1,1 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="17" fill="#245ef0"/><path d="M10 42h12l10-27 10 33 10-20h5" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/><circle cx="52" cy="28" r="4" fill="#4de0cc"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 116" role="img" aria-labelledby="title">
+<title id="title">PipMora — P-shaped candlestick market logo</title>
+<!-- P-shaped dark stroke, visually faithful to the supplied PipMora brand -->
+<path d="M46 11H78C100 11 117 29 117 51C117 72 101 90 78 90H69C69 80 75 75 85 72C98 68 105 60 105 50C105 34 94 24 77 24H46Z" fill="#171B23"/>
+<!-- Three contrasting candlesticks -->
+<path d="M15 63V53M15 108V100" stroke="#08CDA1" stroke-width="5" stroke-linecap="round"/>
+<rect x="5" y="65" width="20" height="36" rx="7" fill="#08CDA1"/>
+<path d="M42 45V36M42 106V96" stroke="#FA3040" stroke-width="5" stroke-linecap="round"/>
+<rect x="32" y="46" width="20" height="51" rx="7" fill="#FA3040"/>
+<path d="M69 22V13M69 103V86" stroke="#19C6A8" stroke-width="5" stroke-linecap="round"/>
+<rect x="59" y="26" width="20" height="62" rx="7" fill="#19C6A8"/>
+</svg>

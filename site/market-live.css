@@ -1,0 +1,30 @@
+
+/* PipMora live data embeds and attribution. Never style synthetic price cards as live. */
+.live-ticker-banner{border-bottom:1px solid #e3eaf3;background:white}
+.provider-ticker{min-height:86px;overflow:hidden}
+.provider-disclaimer{padding:7px 18px 10px;text-align:center;color:#708099;font-size:11px;background:#f8faff}
+.live-ticker-banner .tradingview-widget-container{min-height:80px}
+.tradingview-widget-copyright{font-size:11px;color:#75839b;line-height:23px;padding:0 13px}
+.tradingview-widget-copyright a{color:#2962ff;font-weight:700}
+.landing .live-hero{padding:16px;border-radius:14px}
+.landing .live-hero h3{font-size:15px;font-weight:800}
+.provider-tag{background:#eaf1ff;color:#205fe3;font-size:10px;font-weight:750;border-radius:7px;padding:7px 10px}
+.live-hero-widget{height:365px;margin-top:12px;min-width:0}
+.provider-overview{height:490px;min-width:0;overflow:hidden;border:1px solid #e5e9f2;background:#fff;border-radius:14px;box-shadow:0 8px 20px #243b5b0b}
+.provider-calendar{height:565px;min-width:0;overflow:hidden;border:1px solid #e5e9f2;background:#fff;border-radius:14px}
+.demo-journey{display:flex;align-items:center;justify-content:space-between;gap:25px;flex-wrap:wrap;padding:22px 0 0}
+.demo-journey h3{font-size:19px;color:#1b2b42;margin:0 0 6px}
+.demo-journey p{font-size:13px;color:#64758f;margin:0}
+.landing .market-snapshot{grid-template-columns:.88fr 1.12fr;align-items:center}
+.market-live-overview{margin:32px 0 28px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.market-live-overview>div{min-width:0;overflow:hidden;background:white;border:1px solid #e3e8f0;border-radius:13px}
+.market-live-overview h2{margin:0;padding:14px 20px;font-size:17px}
+.market-overview-chart{height:500px}
+.market-calendar-chart{height:500px}
+.lab-live-section{margin:20px 0 24px;padding:20px;background:white;border:1px solid #dfe6ef;border-radius:12px}
+.lab-live-section h2{font-size:18px;color:#17243b;margin:0 0 6px}
+.lab-live-section p{font-size:12px;color:#627590}
+.lab-live-overview{height:290px;overflow:hidden;min-width:0}
+.live-price-source{font-size:11px;color:#6c7b90}
+@media(max-width:950px){.landing .market-snapshot,.market-live-overview{grid-template-columns:1fr}.provider-overview{height:460px}}
+@media(max-width:650px){.live-hero-widget{height:310px}.provider-ticker{min-height:80px}.provider-tag{font-size:8px}.provider-calendar{height:470px}.provider-overview{height:430px}.market-live-overview{gap:12px}.market-overview-chart,.market-calendar-chart{height:420px}}

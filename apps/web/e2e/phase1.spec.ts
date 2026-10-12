@@ -16,8 +16,9 @@ test('signup, market context, demo trade, journal and AI Coach remain connected'
   await expect(page.getByRole('heading', { name: /Welcome back/ })).toBeVisible();
 
   await page.goto('/app/markets');
-  await expect(page.getByRole('heading', { name: 'Explore Forex markets.' })).toBeVisible();
-  await expect(page.getByText('EUR/USD · DEMO')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Explore live currency markets.' })).toBeVisible();
+  await expect(page.getByText(/TradingView provider data may differ by feed/)).toBeVisible();
+  await expect(page.locator('.provider-market-main .provider-widget-advanced')).toBeVisible();
 
   await page.goto('/app/economic-calendar');
   await expect(page.getByRole('heading', { name: /Economic calendar/i })).toBeVisible();
