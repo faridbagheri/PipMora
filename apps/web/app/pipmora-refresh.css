@@ -130,3 +130,12 @@ h1{font-weight:850}h2{font-weight:830}
 @media(max-width:1160px){.nav-links{gap:14px}.nav{gap:14px}.hero-grid{gap:25px}.hero h1{font-size:clamp(46px,5.2vw,70px)}}
 @media(max-width:850px){.nav-links{display:none}.hero-grid{grid-template-columns:1fr}.hero{padding:66px 0}.hero h1{font-size:clamp(45px,7.2vw,72px)}.preview-shell{max-width:720px}.section{padding:66px 0}.market-ribbon-item{min-width:165px}}
 @media(max-width:600px){.container{width:min(100% - 28px,1310px)}.brand{font-size:20px}.brand-mark{width:36px;height:36px}.site-header{height:68px}.nav-actions{gap:9px}.link-login{display:none}.hero{padding:55px 0 66px}.hero h1{font-size:clamp(40px,10.5vw,57px)}.hero-copy>p{font-size:15px}.preview-content{padding:15px}.section-header{gap:13px}.section{padding:57px 0}.site-footer{padding:32px 0}.market-ribbon-item{min-width:157px;padding:10px 12px}.panel{padding:16px}.work-header{height:64px}}
+
+/* Consistent full wordmark, including top-left marketing nav, workspace, auth and footer. */
+.brand{display:inline-flex;align-items:center;flex:0 0 auto;gap:0;max-width:100%}
+.brand .brand-wordmark{display:block;width:200px;height:auto;max-height:64px;max-width:100%;object-fit:contain}
+.sidebar-brand .brand .brand-wordmark{width:176px}
+.auth-side .brand .brand-wordmark{width:210px;background:#fff;padding:4px 6px;border-radius:8px}
+:root[data-theme='dark'] .brand .brand-wordmark{background:#fff;padding:3px 5px;border-radius:7px}
+:root[data-theme='dark'] .auth-side .brand .brand-wordmark{padding:4px 6px}
+@media(max-width:650px){.brand .brand-wordmark{width:157px}.sidebar-brand .brand .brand-wordmark{width:155px}}

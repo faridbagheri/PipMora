@@ -111,3 +111,15 @@
 .terminal .footer{color:#7b8799}
 .terminal .pairstrip{gap:7px}
 @media(max-width:580px){.terminal header{gap:8px}.terminal .pill{font-size:9px}.terminal .chart{height:260px}.terminal .top{align-items:flex-start}.terminal .metric strong{font-size:19px}}
+
+/* The official horizontal PipMora wordmark, traced from the provided artwork. */
+.landing .logo, .terminal .brand, .landing .live-logo {white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center;gap:0;letter-spacing:normal}
+.landing .logo .pip-wordmark, .terminal .brand .pip-wordmark, .landing .live-logo img.pip-wordmark{
+  display:block;width:205px;height:auto;max-width:100%;max-height:64px;object-fit:contain;flex-shrink:0;
+}
+.terminal .brand .pip-wordmark{width:188px}
+.landing .live-logo img.pip-wordmark{width:197px;height:auto}
+@media(max-width:650px){
+  .landing .logo .pip-wordmark,.terminal .brand .pip-wordmark,.landing .live-logo img.pip-wordmark{width:158px;max-height:52px}
+  .terminal .brand .pip-wordmark{width:155px}
+}

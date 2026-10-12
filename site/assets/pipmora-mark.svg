@@ -1,12 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 116" role="img" aria-labelledby="title">
-<title id="title">PipMora — P-shaped candlestick market logo</title>
-<!-- P-shaped dark stroke, visually faithful to the supplied PipMora brand -->
-<path d="M46 11H78C100 11 117 29 117 51C117 72 101 90 78 90H69C69 80 75 75 85 72C98 68 105 60 105 50C105 34 94 24 77 24H46Z" fill="#171B23"/>
-<!-- Three contrasting candlesticks -->
-<path d="M15 63V53M15 108V100" stroke="#08CDA1" stroke-width="5" stroke-linecap="round"/>
-<rect x="5" y="65" width="20" height="36" rx="7" fill="#08CDA1"/>
-<path d="M42 45V36M42 106V96" stroke="#FA3040" stroke-width="5" stroke-linecap="round"/>
-<rect x="32" y="46" width="20" height="51" rx="7" fill="#FA3040"/>
-<path d="M69 22V13M69 103V86" stroke="#19C6A8" stroke-width="5" stroke-linecap="round"/>
-<rect x="59" y="26" width="20" height="62" rx="7" fill="#19C6A8"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="636 350 248 283" role="img" aria-labelledby="pm-icon-title"><title id="pm-icon-title">PipMora candlestick icon</title><path fill="#0bcba2" fill-rule="evenodd" d="M680,391 676,394 675,397 675,425 670,427 666,427 660,430 656,434 653,440 653,555 656,561 661,566 666,568 674,568 675,569 675,599 679,604 684,604 688,600 688,569 689,568 699,568 708,562 712,554 712,441 709,434 706,431 699,427 688,425 688,396 685,392ZM837,373 833,379 833,408 832,409 825,409 815,414 812,418 809,426 809,553 812,560 818,566 823,568 832,568 833,569 833,599 835,603 841,605 846,601 846,570 848,568 855,568 860,566 866,560 869,553 869,425 866,418 862,413 856,410 846,408 846,377 843,373Z"/><path fill="#f9253b" fill-rule="evenodd" d="M760,438 757,439 754,443 754,473 750,475 741,476 734,482 731,488 731,566 734,572 740,577 745,579 753,579 754,580 754,611 757,615 762,616 767,611 767,580 768,579 776,579 781,577 786,573 790,566 790,488 787,482 783,478 777,475 769,475 767,473 767,443 764,439Z"/></svg>

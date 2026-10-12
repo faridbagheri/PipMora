@@ -5,7 +5,7 @@ import './live-charts.css';
 export const metadata:Metadata={
   title:'PipMora | Understand the Market. Learn from Every Trade.',
   description:'AI-powered Forex intelligence, paper trading, economic calendar and evidence-based learning. Educational and simulated data only.',
-  icons:{icon:'/pipmora-mark.svg?v=2'}
+  icons:{icon:'/pipmora-icon.svg?v=20261013'}
 };
 export default function RootLayout({children}:{children:React.ReactNode}){
   return <html lang="en" suppressHydrationWarning><body>{children}</body></html>;
