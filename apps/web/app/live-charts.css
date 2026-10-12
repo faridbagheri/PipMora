@@ -1,0 +1,27 @@
+
+/* Live market widgets are provider-powered; demo execution remains synthetic. */
+.live-next-page{background:var(--bg2);padding:52px 0 90px}
+.live-next-intro{display:flex;align-items:end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:20px}
+.live-next-intro h1{font-size:clamp(34px,4.1vw,60px);margin:12px 0;letter-spacing:-.057em}
+.live-next-intro p{max-width:740px;line-height:1.7}
+.live-next-notice{background:#edf4ff;border:1px solid #d7e5fa;border-radius:10px;padding:15px 17px;color:#435f85;font-size:12px;line-height:1.65;margin:20px 0}
+.live-next-notice strong{color:#2658bd}
+.live-next-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.live-next-card{background:#fff;border:1px solid #e3e9f2;overflow:hidden;border-radius:13px;box-shadow:0 4px 14px #1d32510b;min-width:0}
+.live-next-card header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid #edf0f4}
+.live-next-card h2{color:#16243a;font-size:19px;margin:0 0 4px}
+.live-next-card header p{font-size:12px;color:#748196;margin:0}
+.live-next-card header>span{background:#edf4ff;color:#235de3;padding:7px 10px;border-radius:7px;font-size:10px;font-weight:790;letter-spacing:.05em;white-space:nowrap}
+.live-next-feature{grid-column:1/-1}
+.live-next-chart{width:100%;height:460px;position:relative}
+.live-next-feature .live-next-chart{height:540px}
+.live-next-chart .tradingview-widget-copyright{height:32px;padding:6px 14px;color:#8190a3;font-size:11px}
+.live-next-chart .tradingview-widget-copyright a{color:#2962ff;font-weight:700}
+.live-next-footnote{font-size:12px;color:var(--muted);margin-top:20px}
+.live-next-preview{padding:78px 0;background:var(--bg2)}
+.live-next-preview .live-next-intro h2{font-size:clamp(29px,3.6vw,49px);letter-spacing:-.05em;margin:10px 0}
+.live-next-preview .live-next-chart{height:405px}
+.live-next-preview .live-next-card header{padding:14px 17px}
+.live-next-preview .live-next-card h3{font-size:17px;margin:0 0 3px;color:#13213a}
+@media(max-width:800px){.live-next-grid{grid-template-columns:1fr}.live-next-feature{grid-column:auto}.live-next-feature .live-next-chart{height:440px}.live-next-preview{padding:52px 0}}
+@media(max-width:580px){.live-next-page{padding:25px 0 58px}.live-next-intro{align-items:start}.live-next-chart,.live-next-feature .live-next-chart,.live-next-preview .live-next-chart{height:355px}.live-next-card header{padding:13px}.live-next-preview{padding:45px 0}}

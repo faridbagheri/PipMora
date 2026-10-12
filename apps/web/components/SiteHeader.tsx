@@ -7,7 +7,8 @@ export default function SiteHeader(){
     <div className="container nav">
       <Brand/>
       <nav className="nav-links" aria-label="Public navigation">
-        <Link href="/market-intelligence">Markets</Link>
+        <Link href="/live-charts">Live Forex charts</Link>
+        <Link href="/market-intelligence">Market intelligence</Link>
         <Link href="/features">Products</Link>
         <Link href="/how-it-works">How it works</Link>
         <Link href="/ai-trading-coach">AI Coach</Link>

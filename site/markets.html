@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="PipMora real-time EUR/USD, GBP/USD, USD/JPY Forex charts, powered by TradingView.">
+<meta name="theme-color" content="#ffffff">
+<title>Live Forex Charts — PipMora</title>
+<link rel="stylesheet" href="./refresh.css"><link rel="stylesheet" href="./live-forex.css">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f7f9fc;color:#13213a;font:14px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}a{text-decoration:none;color:inherit}
+.live-nav{height:74px;position:sticky;top:0;z-index:40;background:white;border-bottom:1px solid #e6eaf2}
+.live-nav-inner{max-width:1320px;margin:auto;padding:0 22px;height:100%;display:flex;gap:20px;align-items:center;justify-content:space-between}
+.live-logo{display:flex;align-items:center;gap:9px;font-size:22px;font-weight:820;letter-spacing:-1px;color:#131b2a}
+.live-logo img{width:39px;height:39px}.live-nav-links{display:flex;gap:25px;align-items:center;font-size:13px;font-weight:660;color:#42516b}
+.live-nav-links a:hover{color:#2962ff}
+.live-forex-standalone .container{max-width:1320px;margin:auto;padding:0 22px}
+.footer{background:#101a2d;color:#b9c7d8;padding:26px 0;font-size:12px;text-align:center}
+@media(max-width:580px){.live-nav-links a:first-child{display:none}.live-nav-links{gap:12px}}
+</style>
+</head>
+<body class="landing">
+<header class="live-nav"><nav class="live-nav-inner" aria-label="PipMora"><a class="live-logo" href="./index.html"><img src="./assets/pipmora-mark.svg" alt="">PipMora</a><div class="live-nav-links"><a href="./index.html">Home</a><a href="./lab.html">Demo trading</a><a href="./markets.html" aria-current="page" style="color:#2962ff">Live Forex charts</a></div></nav></header>
+<main class="live-forex-standalone"><div class="container">
+<div class="live-forex-title"><div><span class="kicker">REAL MARKET DATA · TRADINGVIEW</span><h1 style="font-size:clamp(34px,4.5vw,55px);margin:8px 0 10px;letter-spacing:-.05em">Live Forex charts</h1><p>Explore currency market movements with TradingView-powered interactive candlestick charts. Change timeframe, switch instruments, and use technical indicators within the chart.</p></div><a class="live-forex-action" href="./lab.html">Try simulated trading ↗</a></div>
+<div class="live-forex-info"><strong>Market data:</strong> Charts are supplied by TradingView and reflect its available Forex feeds. Pricing and availability can vary by symbol and venue. <strong>Trading lab:</strong> Uses separate synthetic prices; live chart quotes do not execute or price PipMora demo trades.</div>
+<div class="live-forex-grid">
+<article class="live-forex-card"><div class="live-forex-card-header"><div><h2 style="margin:0;font-size:19px">EUR/USD</h2><small style="color:#65758d">Euro / US Dollar</small></div><small>TRADINGVIEW FOREX FEED</small></div><div class="live-forex-embed"><div class="tradingview-widget-container" style="height:100%;width:100%">
+  <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/EURUSD/" target="_blank" rel="noopener nofollow"><span class="blue-text">EUR/USD chart</span></a> by TradingView</div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+  {"autosize":true,"symbol":"FX:EURUSD","interval":"60","timezone":"Etc/UTC","theme":"light","style":"1","locale":"en","withdateranges":true,"hide_side_toolbar":true,"hide_top_toolbar":false,"allow_symbol_change":true,"hide_legend":false,"save_image":false,"calendar":false,"backgroundColor":"#ffffff","gridColor":"rgba(46,68,105,0.07)","support_host":"https://www.tradingview.com"}
+  </script>
+</div></div><div class="live-forex-bottom">Live / provider-supplied data. If the chart is blocked, use the TradingView link within the widget. Educational use only.</div></article>
+<article class="live-forex-card"><div class="live-forex-card-header"><div><h2 style="margin:0;font-size:19px">GBP/USD</h2><small style="color:#65758d">British Pound / US Dollar</small></div><small>TRADINGVIEW FOREX FEED</small></div><div class="live-forex-embed"><div class="tradingview-widget-container" style="height:100%;width:100%">
+  <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/GBPUSD/" target="_blank" rel="noopener nofollow"><span class="blue-text">GBP/USD chart</span></a> by TradingView</div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+  {"autosize":true,"symbol":"FX:GBPUSD","interval":"60","timezone":"Etc/UTC","theme":"light","style":"1","locale":"en","withdateranges":true,"hide_side_toolbar":true,"hide_top_toolbar":false,"allow_symbol_change":true,"hide_legend":false,"save_image":false,"calendar":false,"backgroundColor":"#ffffff","gridColor":"rgba(46,68,105,0.07)","support_host":"https://www.tradingview.com"}
+  </script>
+</div></div><div class="live-forex-bottom">Live / provider-supplied data. If the chart is blocked, use the TradingView link within the widget. Educational use only.</div></article>
+<article class="live-forex-card"><div class="live-forex-card-header"><div><h2 style="margin:0;font-size:19px">USD/JPY</h2><small style="color:#65758d">US Dollar / Japanese Yen</small></div><small>TRADINGVIEW FOREX FEED</small></div><div class="live-forex-embed"><div class="tradingview-widget-container" style="height:100%;width:100%">
+  <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/USDJPY/" target="_blank" rel="noopener nofollow"><span class="blue-text">USD/JPY chart</span></a> by TradingView</div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+  {"autosize":true,"symbol":"FX:USDJPY","interval":"60","timezone":"Etc/UTC","theme":"light","style":"1","locale":"en","withdateranges":true,"hide_side_toolbar":true,"hide_top_toolbar":false,"allow_symbol_change":true,"hide_legend":false,"save_image":false,"calendar":false,"backgroundColor":"#ffffff","gridColor":"rgba(46,68,105,0.07)","support_host":"https://www.tradingview.com"}
+  </script>
+</div></div><div class="live-forex-bottom">Live / provider-supplied data. If the chart is blocked, use the TradingView link within the widget. Educational use only.</div></article>
+</div>
+<p class="live-forex-disclaimer" style="margin-top:24px">Market quotes are displayed by a third-party provider and may not match a broker's executable bid or ask. PipMora does not offer real-money trading or individualized investment advice.</p>
+</div></main><footer class="footer">© 2026 PipMora · Understand the Market. Learn from Every Trade. · <a href="https://github.com/faridbagheri/PipMora">GitHub</a></footer>
+</body></html>

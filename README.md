@@ -3,7 +3,7 @@
 **AI-Powered Forex Intelligence & Learning Platform**  
 *Understand the Market. Learn from Every Trade.*
 
-PipMora is an educational, full-stack Forex research and paper-trading MVP. It combines a simulated market workspace, fictional economic calendar, journal-driven trading analytics, historical-style replay, and an evidence-based AI Coach. The application does **not** execute real-money orders, connect to broker accounts, provide investment recommendations, or guarantee performance. All current market data is **synthetic demonstration data**.
+PipMora is an educational, full-stack Forex research and paper-trading MVP. It combines a simulated market workspace, fictional economic calendar, journal-driven trading analytics, historical-style replay, and an evidence-based AI Coach. The application does **not** execute real-money orders, connect to broker accounts, provide investment recommendations, or guarantee performance. Trading simulations, analytics, and the backend market-data service use **synthetic demonstration data**. The public website and Next.js `/live-charts` page separately embed **TradingView-supplied Forex charts** for EUR/USD, GBP/USD, and USD/JPY. Those third-party charts are not used for fills, user-account calculations, or AI Coach evidence.
 
 ## Phase 1 features
 
@@ -18,6 +18,13 @@ PipMora is an educational, full-stack Forex research and paper-trading MVP. It c
 - Evidence-based PipMora AI Coach with persistent reviews and offline rule mode; optional OpenAI-compatible LLM endpoint with only structured trade facts.
 - One synthetic, look-ahead-safe market replay with incremental candles, a gated macro event, simulated positions and journal handoff.
 - Docker Compose, initial Alembic migration, API documentation at `/docs`, and GitHub Actions tests and frontend build.
+
+## Live Forex charts (separate from demo trading)
+
+- Public GitHub Pages market view: [site/markets.html](site/markets.html) (`https://faridbagheri.github.io/PipMora/markets.html`).
+- Next.js market view: `/live-charts`; the homepage also embeds EUR/USD and GBP/USD charts.
+- Uses the official TradingView Advanced Chart embed with provider attribution. Forex feeds are described as real-time by TradingView, subject to data availability, symbol/venue, and the visitor's connection. If the third-party script is blocked, users can open the TradingView symbol links.
+- Embeds require internet access; no data is downloaded into PipMora's database or sent to the paper-trading engine. The synthetic market ticker and demo account positions remain **explicitly labeled synthetic**. Do not confuse third-party market charts with the simulator's execution rate.
 
 ## Architecture
 
