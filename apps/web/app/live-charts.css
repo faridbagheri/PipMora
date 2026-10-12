@@ -65,3 +65,15 @@
 .hero-chart-source{margin:9px 4px 0;color:#728199;font-size:11px;line-height:1.4}
 .hero-chart-source a{color:#2962ff;font-weight:700}
 @media(max-width:740px){.precise-ticker-item{min-width:210px;padding:11px 13px}.provider-home-label{align-items:flex-start;flex-wrap:wrap;gap:8px}.hero-pair-controls label{display:none}}
+
+/* Keep the compact previous ticker presentation; animate a seamless duplicate strip. */
+.provider-home-ticker .precise-ticker{overflow:hidden;width:100%;scrollbar-width:none;background:#fff}
+.provider-home-ticker .precise-ticker-track{display:flex;min-width:0;width:max-content;align-items:stretch;justify-content:flex-start;animation:pipmora-fx-scroll 38s linear infinite;will-change:transform}
+@keyframes pipmora-fx-scroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+.provider-home-ticker .precise-ticker:hover .precise-ticker-track,.provider-home-ticker .precise-ticker:focus-within .precise-ticker-track{animation-play-state:paused}
+.provider-home-ticker .precise-ticker-item{flex:none;width:230px;min-width:230px;max-width:230px;justify-content:flex-start;gap:10px;padding:15px 13px}
+.provider-home-ticker .precise-market-state{display:none}
+.provider-home-ticker .ticker-credit{text-align:center;background:#fff;border-top:1px solid #f2f5fa;font-size:10px;line-height:19px;padding:0;margin:0}
+.provider-home-ticker .ticker-credit a{color:#8896aa;text-decoration:none}
+@media(prefers-reduced-motion:reduce){.provider-home-ticker .precise-ticker-track{animation:none}.provider-home-ticker .precise-ticker{overflow-x:auto}}
+@media(max-width:740px){.provider-home-ticker .precise-ticker-item{width:218px;min-width:218px;max-width:218px;padding:13px 12px}}
