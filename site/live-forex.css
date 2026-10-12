@@ -1,0 +1,28 @@
+
+/* Provider-powered charts are separate from PipMora's synthetic trading and journal data. */
+.live-forex-section{background:#f7f9fc;padding:82px 0 86px;border-top:1px solid #e7ecf4}
+.landing .live-forex-section{background:#f7f9fc}
+.live-forex-title{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:22px}
+.live-forex-title h2{color:#13213a;margin:8px 0;font-size:clamp(28px,3.4vw,43px);letter-spacing:-.045em}
+.live-forex-title p,.live-forex-disclaimer{max-width:670px;font-size:13px;line-height:1.7;color:#65758d}
+.live-forex-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.live-forex-card{background:white;border:1px solid #e1e7f0;border-radius:14px;overflow:hidden;box-shadow:0 4px 16px #1829440c;min-width:0}
+.live-forex-card-header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:17px 20px;border-bottom:1px solid #edf0f5}
+.live-forex-card-header h3{font-size:17px;color:#15233a;margin:0}
+.live-forex-card-header small{font-size:10px;font-weight:750;letter-spacing:.06em;color:#2362e3;background:#eaf1ff;border-radius:6px;padding:6px 9px}
+.live-forex-embed{height:440px;width:100%;min-width:0;position:relative}
+.live-forex-embed .tradingview-widget-container{height:100%;width:100%;min-width:0}
+.live-forex-embed .tradingview-widget-copyright{height:32px;padding:5px 12px;font-size:11px;color:#7c869b;white-space:nowrap}
+.live-forex-embed .tradingview-widget-copyright a{color:#2962ff;font-weight:650}
+.live-forex-bottom{padding:12px 17px;color:#6e7e94;font-size:11px;background:#fafbfe;border-top:1px solid #edf0f4}
+.live-forex-action{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;background:#2962ff;border-radius:9px;color:white!important;text-decoration:none!important;font-size:13px;font-weight:730;white-space:nowrap}
+.live-forex-action:hover{background:#194dd6}
+.live-forex-standalone{padding:46px 0 90px;background:#f7f9fc;min-height:calc(100vh - 170px)}
+.live-forex-standalone .live-forex-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:25px}
+.live-forex-standalone .live-forex-card:first-child{grid-column:1/-1}
+.live-forex-standalone .live-forex-card:first-child .live-forex-embed{height:570px}
+.live-forex-standalone .live-forex-card:not(:first-child) .live-forex-embed{height:460px}
+.live-forex-info{border:1px solid #dfe8f6;background:#f0f5ff;color:#436187;border-radius:10px;padding:13px 16px;font-size:12px;margin:20px 0}
+.live-forex-info strong{color:#173f89}
+@media(max-width:800px){.live-forex-section{padding:58px 0}.live-forex-grid,.live-forex-standalone .live-forex-grid{grid-template-columns:1fr}.live-forex-standalone .live-forex-card:first-child{grid-column:auto}.live-forex-standalone .live-forex-card:first-child .live-forex-embed{height:450px}}
+@media(max-width:600px){.live-forex-embed,.live-forex-standalone .live-forex-card:first-child .live-forex-embed,.live-forex-standalone .live-forex-card:not(:first-child) .live-forex-embed{height:380px}.live-forex-card-header{padding:14px}.live-forex-section{padding:50px 0}.live-forex-title{align-items:start}.live-forex-action{width:100%;justify-content:center}.live-forex-standalone{padding:24px 0}}
