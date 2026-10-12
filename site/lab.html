@@ -19,9 +19,10 @@ header{display:flex;align-items:center;justify-content:space-between;gap:14px;pa
 .footer{padding-top:22px;color:var(--muted);font-size:12px}.event{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border)}.event:last-child{border-bottom:0}.event b{font-size:13px}
 @media(max-width:1000px){.layout{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}}@media(max-width:580px){.container{padding:20px 12px 50px}.metrics{gap:8px}.metric{padding:12px}.metric strong{font-size:20px}.chart{height:250px}.grid2{grid-template-columns:1fr}.pad{padding:14px}.data{font-size:11px}}
 </style>
+<link rel="stylesheet" href="./refresh.css">
 </head>
-<body>
-<header><a class="brand" href="./index.html">Pip<b>Mora</b></a><a class="back" href="./index.html">← Back to website</a><span class="pill">INTERACTIVE PRODUCT PREVIEW</span></header>
+<body class="terminal">
+<header><a class="brand" href="./index.html" aria-label="PipMora home"><img class="pip-mark" src="./assets/pipmora-mark.svg" alt="">Pip<b>Mora</b></a><a class="back" href="./index.html">← Back to website</a><span class="pill">SYNTHETIC TRADING TERMINAL</span></header>
 <div class="container">
 <div class="notice"><strong>SYNTHETIC DEMONSTRATION DATA.</strong> No live market feed, brokerage orders, financial advice, actual AI model or server accounts. Demo positions are saved only in this browser's local storage; this is not the authenticated PipMora application.</div>
 <div class="top"><div><h1>Trade. Reflect. Improve.</h1><p class="sub">Walk through a simulated Forex decision from chart to journal to evidence-led coaching.</p></div><button class="btn" id="reset">Reset demo</button></div>
