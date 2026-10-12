@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function Brand({compact=false}:{compact?:boolean}){return <Link href="/" className="brand" aria-label="PipMora home"><svg width="35" height="35" viewBox="0 0 36 36" fill="none" aria-hidden="true"><rect width="36" height="36" rx="11" fill="#215df2"/><path d="M7 24h6l5-14 5 17 5-10h3" stroke="#fff" strokeWidth="2.7" strokeLinecap="round" strokeLinejoin="round"/><circle cx="28" cy="17" r="2" fill="#51e6d0"/></svg>{!compact&&<span>Pip<span className="brand-accent">Mora</span></span>}</Link>}

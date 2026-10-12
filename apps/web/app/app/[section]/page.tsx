@@ -1,0 +1,2 @@
+import {Suspense} from 'react';import {notFound} from 'next/navigation';import Workspace from '@/components/Workspace';
+export default async function Page({params}:{params:Promise<{section:string}>}){const{section}=await params;if(!['dashboard','markets','market-analysis','economic-calendar','demo-trading','trading-journal','ai-coach','my-analytics','replay','settings','demo'].includes(section))notFound();return <Suspense fallback={<div className="page-loading">Loading workspace…</div>}><Workspace section={section}/></Suspense>}
