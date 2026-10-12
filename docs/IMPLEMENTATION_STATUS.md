@@ -27,8 +27,12 @@ The FastAPI server, database and Next.js frontend are in separate directories. P
 - Currency candles and economic announcements are deliberately synthetic. Actual/forecast values are blank for unreleased fictional events.
 - Trade execution is a simplified simulator; stops are evaluated during replay progression or API refresh, not by an always-running exchange matching engine.
 - Email delivery requires SMTP. Development token return is local-only and must be disabled publicly.
-- Public pages now embed TradingView real-time Forex chart widgets (EUR/USD, GBP/USD, USD/JPY), dependent on the provider and visitor connectivity. The backend still has no licensed real-time market-data API for trade execution, analytics or AI Coach. No live news vendor, broker connection, payment processing, multilingual interface, or production SaaS provisioning.
+- Public pages and Next.js market screens now embed TradingView Forex widgets (EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD, EUR/GBP), with market watchlists and provider economic calendar, dependent on the provider and visitor connectivity. The backend still has no licensed real-time market-data API for trade execution, analytics or AI Coach. No live news vendor, broker connection, payment processing, multilingual interface, or production SaaS provisioning.
 - Tests include API integration and an automated Playwright Chromium user journey. Browser CI verification must pass before calling the full UI workflow verified; load testing, security penetration testing, and PostgreSQL concurrency verification are not performed.
 - Public launch still requires infrastructure hardening, rate limiting, backups, DNS/TLS, monitoring and legal review of draft privacy/terms/risk copy.
 
 Do not present this artifact as a hosted or thoroughly production-validated financial service. It is an implemented MVP source repository with backend integration verification and deployment tooling.
+
+## October 2026 market-display improvement
+
+Removed fixed synthetic ticker, hero and market-overview prices from the public homepage and the Next.js public landing page. Added six live provider chart embeds, externally updated Forex ticker/overview and economic calendar, plus a live quote watchlist in the synthetic paper-trading lab. Updated the logo and favicon vector for consistent proportions. Added static provider-config/data-provenance assertions in the backend test suite. Third-party widget rendering depends on provider access; CI compilation is not proof of a live real-time subscription. The paper-trading, event replay and analytics database still use simulated/recorded data.
