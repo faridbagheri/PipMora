@@ -17,7 +17,7 @@ The FastAPI server, database and Next.js frontend are in separate directories. P
 
 ## Not verified in this environment
 
-- Next.js dependency install, semantic typecheck and production build passed on GitHub Actions CI on 12 October 2026. Browser interaction is not yet end-to-end tested.
+- Next.js dependency install, semantic typecheck and production build passed on GitHub Actions CI on 12 October 2026. A Playwright Chromium browser smoke test has been committed to GitHub Actions. Check the latest CI run for its result; previous API/build checks passed.
 - Full Docker Compose PostgreSQL deployment: Docker command not present in runtime.
 - Live full-stack URL/HTTPS/TLS and SMTP delivery: a Render Blueprint is prepared but no hosting or SMTP integration is connected. Pages preview requires owner activation under GitHub Settings.
 - GitHub repository is now https://github.com/faridbagheri/PipMora and the full Phase 1 code has been published to `main`. Public preview files and its Pages workflow are also committed. The GitHub Pages site is not yet enabled.
@@ -28,7 +28,7 @@ The FastAPI server, database and Next.js frontend are in separate directories. P
 - Trade execution is a simplified simulator; stops are evaluated during replay progression or API refresh, not by an always-running exchange matching engine.
 - Email delivery requires SMTP. Development token return is local-only and must be disabled publicly.
 - No real-time financial feed, live news vendor, broker connection, payment processing, multilingual interface, or production SaaS provisioning.
-- Tests cover API contracts but do not yet include browser automation, load testing, security penetration testing, or production PostgreSQL concurrency.
+- Tests include API integration and an automated Playwright Chromium user journey. Browser CI verification must pass before calling the full UI workflow verified; load testing, security penetration testing, and PostgreSQL concurrency verification are not performed.
 - Public launch still requires infrastructure hardening, rate limiting, backups, DNS/TLS, monitoring and legal review of draft privacy/terms/risk copy.
 
 Do not present this artifact as a hosted or thoroughly production-validated financial service. It is an implemented MVP source repository with backend integration verification and deployment tooling.

@@ -72,7 +72,9 @@ python -m pytest services/api/tests -q
 cd apps/web && npm install && npm run lint && npm run build
 ```
 
-The integration suite covers registration, simulated trade opening/closing, journal persistence across login, AI review evidence, account deletion, password reset, manual JPY-to-USD P/L conversion, unauthorized replay access and replay data cutoff. Browser end-to-end automation and PostgreSQL concurrency/load testing remain follow-up work.
+A browser end-to-end smoke test is also configured under `apps/web/e2e/phase1.spec.ts`. GitHub Actions provisions temporary FastAPI and Next.js servers with Chromium, runs signup → market/calendar exploration → simulated trade → journal → AI Coach → analytics, and publishes failure diagnostics. To run locally, install Playwright (`npx playwright install chromium`), start the API and web servers, then run `cd apps/web && npm run test:e2e`.
+
+The integration suite covers registration, simulated trade opening/closing, journal persistence across login, AI review evidence, account deletion, password reset, manual JPY-to-USD P/L conversion, unauthorized replay access and replay data cutoff. Browser end-to-end automation is configured in GitHub Actions; PostgreSQL concurrency/load testing and security penetration testing remain follow-up work.
 
 ## Public GitHub preview and full-stack hosting
 
@@ -91,7 +93,7 @@ reviewing paid resource costs, and configuring SMTP and security controls. See
 
 ## Deployment
 
-Use a managed PostgreSQL database and HTTPS reverse proxy. Deploy web and API on the same site (e.g. `app.example.com` and `api.example.com`), configure the production database URL, public API URL and allowed frontend origin, and set `APP_ENV=production`, `COOKIE_SECURE=true`, `ENABLE_DEV_RESET_LINK=false`. Run `alembic upgrade head` before starting the API. Build the Next.js container with the final `NEXT_PUBLIC_API_URL`. Configure SMTP to deliver password recovery links.
+Use the included `render.yaml` Blueprint for two Docker web services and managed PostgreSQL, or equivalent infrastructure. The browser should call relative `/api/*` paths (leave `NEXT_PUBLIC_API_URL` empty); the Next.js server forwards the requests over the hosting provider's private network using `API_INTERNAL_HOSTPORT`. Set a production `FRONTEND_ORIGIN`, `APP_ENV=production`, `COOKIE_SECURE=true` and `ENABLE_DEV_RESET_LINK=false`. Apply `alembic upgrade head` before starting the API and configure SMTP for password recovery. Public infrastructure has not been provisioned, and deploy costs and legal/security controls must be reviewed first.
 
 The Compose file is a local proof-of-deployment setup, **not** an Internet-hardened production reference: add TLS, backups, observability, rate limits, secrets management, privacy-policy review, automated end-to-end tests, and regulatory assessment before launch. Do not enable an external LLM unless you understand its data-processing implications.
 
