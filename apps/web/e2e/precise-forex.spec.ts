@@ -37,6 +37,8 @@ test('public homepage shows a genuine 5-decimal absolute change and switches liv
   await expect(page.locator('.precise-market-state')).toHaveCount(0);
   await expect(page.locator('[data-symbol="USDJPY"] .precise-change')).toHaveText('+0.00027');
 
+  // Moving ticker items pause on hover. Move the pointer first so the click is stable.
+  await page.locator('[data-symbol="USDJPY"]').hover({force:true});
   await page.locator('[data-symbol="USDJPY"]').click();
   await expect(page.locator('#heroPairSelect')).toHaveValue('USDJPY');
   await expect(page.locator('#heroPairTitle')).toContainText('USD/JPY');
