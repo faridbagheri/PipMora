@@ -19,6 +19,12 @@ PipMora is an educational, full-stack Forex research and paper-trading MVP. It c
 - One synthetic, look-ahead-safe market replay with incremental candles, a gated macro event, simulated positions and journal handoff.
 - Docker Compose, initial Alembic migration, API documentation at `/docs`, and GitHub Actions tests and frontend build.
 
+## Price precision and selectable homepage chart
+
+The public GitHub Pages homepage and Next.js homepage now show six selectable FX pairs. The quote strip is **not** TradingView's legacy ticker tape: that widget rounds tiny absolute changes to two decimals and does not expose a five-decimal formatting control. The new ticker reads indicative broker mid-quotes from the unauthenticated, CORS-enabled [biquote.io market-data API](https://biquote.io/docs/) (batch /api/latest) and the provider's current daily OHLC open (/api/SYMBOL/ohlc?interval=1d). It calculates `mid - open` and displays the **absolute session change to five decimals**, such as `+0.00027`; it does not invent missing prices from percentage changes. Quotes refresh approximately every 15 seconds while the browser tab is visible. A market-closed, stale, blocked, rate-limited, or unavailable feed is explicitly labeled, with unknown changes displayed as `—`.
+
+Click a symbol in the quote strip or use the dropdown above the main chart to switch among EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD, and EUR/GBP. The historical chart itself remains a TradingView external widget and updates to the chosen symbol independently. Different Forex data providers can have different bid, ask, midpoint, trading session boundaries and timestamps; the quote strip and TradingView chart may therefore differ slightly. This is informational market display and **does not set demo orders' execution prices**.
+
 ## Market data provenance and update behavior
 
 PipMora now embeds official **TradingView provider widgets** for six Forex pairs on the public website, the Next.js homepage, and the market screens of the authenticated application. These third-party widgets provide continuously updated quotes and charts **while the applicable Forex markets are trading**, subject to their own feed availability and market hours:
