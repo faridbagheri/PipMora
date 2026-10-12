@@ -5,7 +5,7 @@ import { test, expect } from '@playwright/test';
  * Both the Next.js frontend and the FastAPI backend must be running.
  */
 test('signup, market context, demo trade, journal and AI Coach remain connected', async ({ page }) => {
-  const email = `e2e-${Date.now()}-${Math.floor(Math.random()*1_000_000)}@example.test`;
+  const email = `e2e-${Date.now()}-${Math.floor(Math.random()*1_000_000)}@example.org`;
 
   await page.goto('/signup');
   await page.getByLabel('Full name').fill('Investor Demo');
