@@ -123,3 +123,24 @@
   .landing .logo .pip-wordmark,.terminal .brand .pip-wordmark,.landing .live-logo img.pip-wordmark{width:158px;max-height:52px}
   .terminal .brand .pip-wordmark{width:155px}
 }
+
+/* Header logo safety: never let a replacement SVG grow beyond the navigation. */
+.landing header.nav, .landing header.live-nav, .terminal header {isolation:isolate}
+.landing header.nav .logo, .landing .live-nav .live-logo, .terminal header .brand {
+  line-height:1;min-width:0;position:relative;z-index:1;
+}
+.landing header.nav .logo .pip-wordmark,
+.landing .live-nav .live-logo img.pip-wordmark,
+.terminal header .brand .pip-wordmark{
+  display:block;object-fit:contain;max-height:54px;max-width:180px;vertical-align:middle;
+}
+@media(max-width:650px){
+  .landing header.nav .logo, .landing .live-nav .live-logo,
+  .terminal header .brand {max-width:138px!important;height:42px!important}
+  .landing header.nav .logo .pip-wordmark,
+  .landing .live-nav .live-logo img.pip-wordmark,
+  .terminal header .brand .pip-wordmark{
+    width:138px!important;height:42px!important;max-height:42px!important;max-width:138px!important;
+  }
+  .landing header.nav .container{gap:10px}
+}
