@@ -20,6 +20,7 @@ h1{font-weight:850}h2{font-weight:830}
 .gradient-text{background:none;-webkit-text-fill-color:var(--blue);color:var(--blue)}
 .brand{font-size:23px;letter-spacing:-.06em;font-weight:850;gap:8px;color:var(--text)}
 .brand-mark{display:block;flex-shrink:0;width:43px;height:43px}
+:root[data-theme='dark'] .brand-mark{background:#fff;border-radius:9px;padding:2px}
 .brand-accent{color:var(--text)}
 .btn{border-radius:9px;font-weight:720;gap:10px;box-shadow:none}
 .btn-primary{background:#2962ff;box-shadow:0 5px 17px #2962ff20;color:#fff}
