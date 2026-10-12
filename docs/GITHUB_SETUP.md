@@ -1,24 +1,21 @@
-# Publishing PipMora to GitHub
+# GitHub repository & deployment guide
 
-The authenticated GitHub connection can inspect and update an existing repository, but this session did not expose a *create repository* operation. The requested `faridbagheri/pipmora` repository was not found by the integration. No push or PR has been claimed.
+The PipMora Phase 1 source is now published at
+https://github.com/faridbagheri/PipMora.
 
-1. In GitHub, create an **empty private** repository named `pipmora` under `faridbagheri` (do not initialize it with an extra README, .gitignore, or license).
-2. Grant the ChatGPT GitHub integration access to this repository if GitHub asks you to select repositories.
-3. To upload from the included local Git repository:
+The repository contains Next.js, FastAPI, database migrations, tests, CI,
+Docker Compose, the public marketing preview and the Render deployment Blueprint.
+CI tests and frontend build were confirmed passing after initial import.
 
-```bash
-cd pipmora
-git remote add origin https://github.com/faridbagheri/pipmora.git
-git push -u origin main
-```
+## Public preview
 
-If using the accompanying `pipmora-history.bundle` instead of the source ZIP, preserve the commits with:
+Enable Pages via **Settings → Pages → Build and deployment → GitHub Actions**.
+Then run **Public PipMora Preview** from Actions. Preview URL after successful
+publication: https://faridbagheri.github.io/PipMora/.
 
-```bash
-git clone pipmora-history.bundle pipmora
-cd pipmora
-git remote add origin https://github.com/faridbagheri/pipmora.git
-git push -u origin main
-```
+## Full-stack website
 
-GitHub credentials belong in your local Git credential manager or GitHub's interactive authentication, never in files or commands saved to the repository. Once the repo exists, CI runs on the main branch and future changes should be submitted from feature branches through pull requests.
+Use `render.yaml` through Render Blueprints or the Docker Compose stack locally.
+Read `docs/DEPLOYMENT.md`; public hosting and PostgreSQL require account setup
+and potentially paid subscriptions. Do not commit `.env`, credentials or real
+financial data.

@@ -1,4 +1,4 @@
-export const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+export const API = process.env.NEXT_PUBLIC_API_URL || '';
 export async function api<T=any>(path:string, init:RequestInit={}):Promise<T>{
   const headers:HeadersInit = { ...(init.body ? {'Content-Type':'application/json'}:{}), ...(init.headers||{}) };
   let response:Response;

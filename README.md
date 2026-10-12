@@ -60,7 +60,7 @@ npm install
 npm run dev
 ```
 
-In local SQLite mode the API creates tables for convenience. Use `alembic upgrade head` for managed database creation, particularly with PostgreSQL. Environment variables are listed in `.env.example`. The Next.js browser API target is compiled from `NEXT_PUBLIC_API_URL` and defaults to `http://localhost:8000`.
+In local SQLite mode the API creates tables for convenience. Use `alembic upgrade head` for managed database creation, particularly with PostgreSQL. Environment variables are listed in `.env.example`. The browser calls the website's `/api` routes, which forward to FastAPI using `API_INTERNAL_HOSTPORT` (Docker/Render) or `API_PROXY_URL` (local development); `NEXT_PUBLIC_API_URL` is normally left empty.
 
 > Password recovery: The development reset link is exposed only when `APP_ENV=development` and `ENABLE_DEV_RESET_LINK=true`; configure SMTP before any public deployment and set those flags to production/false. In production, do not expose reset tokens in API responses.
 
@@ -73,6 +73,21 @@ cd apps/web && npm install && npm run lint && npm run build
 ```
 
 The integration suite covers registration, simulated trade opening/closing, journal persistence across login, AI review evidence, account deletion, password reset, manual JPY-to-USD P/L conversion, unauthorized replay access and replay data cutoff. Browser end-to-end automation and PostgreSQL concurrency/load testing remain follow-up work.
+
+## Public GitHub preview and full-stack hosting
+
+The public interactive product preview (`site/index.html`) is separate from the
+full Next.js / FastAPI / PostgreSQL application. Once repository Pages is enabled
+(Settings → Pages → Source: GitHub Actions), the preview deploy workflow can publish
+it to `https://faridbagheri.github.io/PipMora/`. The preview displays only synthetic
+example data and does not provide accounts or stored trades.
+
+The complete application has a `render.yaml` Blueprint with two services and a
+managed PostgreSQL database. It uses a same-origin Next.js `/api` gateway to keep
+browser authentication cookies on the website's own origin. **Render has not been
+provisioned.** Deploying the application requires authorizing a hosting account,
+reviewing paid resource costs, and configuring SMTP and security controls. See
+[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) for exact instructions.
 
 ## Deployment
 

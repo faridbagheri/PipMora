@@ -17,10 +17,10 @@ The FastAPI server, database and Next.js frontend are in separate directories. P
 
 ## Not verified in this environment
 
-- Next.js application dependency install, production build, TypeScript *semantic* typecheck, or browser interaction: npm package registry DNS is unavailable to the development runtime.
+- Next.js dependency install, semantic typecheck and production build passed on GitHub Actions CI on 12 October 2026. Browser interaction is not yet end-to-end tested.
 - Full Docker Compose PostgreSQL deployment: Docker command not present in runtime.
-- Live URL/HTTPS/TLS and SMTP delivery: hosting and SMTP configuration are not connected.
-- Public GitHub repository: `faridbagheri/pipmora` was not available to the authenticated GitHub connector; repository creation action is not offered by the integration.
+- Live full-stack URL/HTTPS/TLS and SMTP delivery: a Render Blueprint is prepared but no hosting or SMTP integration is connected. Pages preview requires owner activation under GitHub Settings.
+- GitHub repository is now https://github.com/faridbagheri/PipMora and the full Phase 1 code has been published to `main`. Public preview files and its Pages workflow are also committed. The GitHub Pages site is not yet enabled.
 
 ## Known MVP limitations
 
