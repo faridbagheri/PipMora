@@ -20,14 +20,14 @@ The FastAPI server, database and Next.js frontend are in separate directories. P
 - Next.js dependency install, semantic typecheck and production build passed on GitHub Actions CI on 12 October 2026. A Playwright Chromium browser smoke test has been committed to GitHub Actions. Check the latest CI run for its result; previous API/build checks passed.
 - Full Docker Compose PostgreSQL deployment: Docker command not present in runtime.
 - Live full-stack URL/HTTPS/TLS and SMTP delivery: a Render Blueprint is prepared but no hosting or SMTP integration is connected. Pages preview requires owner activation under GitHub Settings.
-- GitHub repository is now https://github.com/faridbagheri/PipMora and the full Phase 1 code has been published to `main`. Public preview files and its Pages workflow are also committed. The GitHub Pages site is not yet enabled.
+- GitHub repository is now https://github.com/faridbagheri/PipMora and the full Phase 1 code has been published to `main`. Public preview files and its Pages workflow are also committed. GitHub Pages deployment has succeeded; inspect the latest workflow after changes before sharing a release.
 
 ## Known MVP limitations
 
 - Currency candles and economic announcements are deliberately synthetic. Actual/forecast values are blank for unreleased fictional events.
 - Trade execution is a simplified simulator; stops are evaluated during replay progression or API refresh, not by an always-running exchange matching engine.
 - Email delivery requires SMTP. Development token return is local-only and must be disabled publicly.
-- No real-time financial feed, live news vendor, broker connection, payment processing, multilingual interface, or production SaaS provisioning.
+- Public pages now embed TradingView real-time Forex chart widgets (EUR/USD, GBP/USD, USD/JPY), dependent on the provider and visitor connectivity. The backend still has no licensed real-time market-data API for trade execution, analytics or AI Coach. No live news vendor, broker connection, payment processing, multilingual interface, or production SaaS provisioning.
 - Tests include API integration and an automated Playwright Chromium user journey. Browser CI verification must pass before calling the full UI workflow verified; load testing, security penetration testing, and PostgreSQL concurrency verification are not performed.
 - Public launch still requires infrastructure hardening, rate limiting, backups, DNS/TLS, monitoring and legal review of draft privacy/terms/risk copy.
 
