@@ -1,128 +1,176 @@
-/* PipMora indicative FX ticker.
- * biquote.io supplies MT5 quotes and open daily candles. Never infer a 5-decimal
- * price change from a 2-decimal percentage, or present stale quotes as live.
- * Display only; never use these prices for paper-trading execution.
- */
+/* PipMora forex ticker: a continuously scrolling quote tape.
+   biquote.io streams real ticks over SignalR. If WebSockets are unavailable,
+   request one batch of six symbols every second (respecting rate limits).
+   Only provider prices are displayed; we never interpolate imaginary ticks.
+*/
 (function () {
   "use strict";
-  const PAIRS = ["EURUSD", "GBPUSD", "USDJPY", "USDCHF", "AUDUSD", "EURGBP"];
+  const PAIRS = ["EURUSD","GBPUSD","USDJPY","USDCHF","AUDUSD","EURGBP"];
   const API = "https://biquote.io/api";
   const track = document.querySelector("#preciseTicker .precise-ticker-track");
   const status = document.getElementById("preciseTickerStatus");
   if (!track || !status) return;
 
-  const opens = new Map();
-  const quotes = new Map();
-  let quoteRunning = false;
-  let openRunning = false;
-  let pausedUntil = 0;
-  const displayPair = code => code.slice(0, 3) + "/" + code.slice(3);
-  const fmt = n => Number(n).toFixed(5);
-  const valid = n => typeof n === "number" && Number.isFinite(n) && n > 0;
-  function setMessage(message) { status.textContent = message; }
-  async function getJSON(url) {
-    const abort = new AbortController();
-    const timeout = setTimeout(() => abort.abort(), 9000);
-    try {
-      const res = await fetch(url, {cache:"no-store", signal:abort.signal});
-      if (res.status === 429) { pausedUntil = Date.now() + 60000; throw Error("Rate limit reached"); }
-      if (!res.ok) throw Error("HTTP " + res.status);
-      return await res.json();
-    } finally { clearTimeout(timeout); }
+  // The duplicate sequence makes the CSS animation loop without a visible jump.
+  // Duplicate buttons are mouse-clickable, but hidden from keyboard and screen readers.
+  for (const original of Array.from(track.querySelectorAll("button[data-symbol]"))) {
+    const duplicate = original.cloneNode(true);
+    const code = duplicate.dataset.symbol;
+    delete duplicate.dataset.symbol;
+    duplicate.dataset.cloneSymbol = code;
+    duplicate.setAttribute("aria-hidden","true");
+    duplicate.tabIndex = -1;
+    track.appendChild(duplicate);
   }
-  function update() {
-    for (const code of PAIRS) {
-      const item = track.querySelector('[data-symbol="' + code + '"]');
-      if (!item) continue;
-      const value = item.querySelector(".precise-rate");
-      const delta = item.querySelector(".precise-change");
-      const tag = item.querySelector(".precise-market-state");
-      const tick = quotes.get(code);
-      const open = opens.get(code);
-      value.textContent = tick && valid(tick.mid) ? fmt(tick.mid) : "—";
-      delta.classList.remove("up", "down");
-      item.classList.remove("is-live", "is-closed");
-      if (!tick) {
-        delta.textContent = "—";
-        tag.textContent = "Unavailable";
-        continue;
+  const opens = new Map(), quotes = new Map();
+  const fmt = value => Number(value).toFixed(5);
+  const valid = value => Number.isFinite(value) && value > 0;
+  let fetching = false, fetchingOpens = false, suspendedUntil = 0;
+  let streaming = false, connection = null, disposed = false;
+  const setMessage = value => { status.textContent = value; };
+
+  async function fetchJSON(url) {
+    const ac = new AbortController();
+    const timer = setTimeout(() => ac.abort(),8000);
+    try {
+      const response = await fetch(url,{cache:"no-store",signal:ac.signal});
+      if (response.status === 429) {
+        const retry = Number(response.headers.get("Retry-After"));
+        suspendedUntil = Date.now() + (valid(retry) ? retry : 60) * 1000;
+        throw Error("Rate limit");
       }
-      const age = Date.parse(tick.timestamp || "");
-      const fresh = tick.marketState === "open" && tick.stale === false &&
-        Number.isFinite(age) && Date.now() - age < 300000 && Date.now() - age > -90000;
-      item.classList.add(fresh ? "is-live" : "is-closed");
-      tag.textContent = fresh ? "LIVE · indicative" : (tick.marketState === "closed" ? "Market closed" : "Stale quote");
-      item.title = "Source: " + (tick.source || "biquote.io MT5") + ". Last quote: " + (tick.timestamp || "unknown");
-      if (fresh && valid(open)) {
-        const diff = tick.mid - open;
-        delta.textContent = (diff >= 0 ? "+" : "−") + fmt(Math.abs(diff));
-        delta.classList.add(diff >= 0 ? "up" : "down");
-        delta.title = "Quote mid-price minus the source's daily opening price";
-      } else {
-        delta.textContent = "—";
-        delta.title = "Session change unavailable or market closed";
+      if (!response.ok) throw Error("HTTP " + response.status);
+      return await response.json();
+    } finally { clearTimeout(timer); }
+  }
+
+  function render() {
+    for (const code of PAIRS) {
+      const tick = quotes.get(code), open = opens.get(code);
+      const time = tick ? Date.parse(tick.timestamp || "") : NaN;
+      const fresh = !!tick && tick.marketState === "open" && tick.stale === false &&
+        Number.isFinite(time) && Date.now() - time < 300000 && Date.now() - time > -90000;
+      const change = fresh && valid(open) ? tick.mid - open : null;
+      for (const item of track.querySelectorAll('button[data-symbol="'+code+'"],button[data-clone-symbol="'+code+'"]')) {
+        item.querySelector(".precise-rate").textContent = tick && valid(tick.mid) ? fmt(tick.mid) : "—";
+        const diff = item.querySelector(".precise-change");
+        diff.classList.remove("up","down");
+        diff.textContent = change === null ? "—" : (change >= 0 ? "+" : "−") + fmt(Math.abs(change));
+        if (change !== null) diff.classList.add(change >= 0 ? "up" : "down");
+        const tag = item.querySelector(".precise-market-state");
+        if (tag) tag.textContent = ""; // No visible LIVE / indicative badges.
+        const state = tick ? (tick.marketState === "closed" ? "Market closed" :
+          fresh ? "Current quote" : "Last known quote") : "Price unavailable";
+        item.title = code.slice(0,3)+"/"+code.slice(3)+": "+state+
+          (tick && tick.timestamp ? " · "+tick.timestamp : "");
       }
     }
   }
-  async function refreshDailyOpens() {
-    if (openRunning || Date.now() < pausedUntil) return;
-    openRunning = true;
+
+  function accept(tick) {
+    if (disposed) return;
+    const candidate = Array.isArray(tick) ? tick[0] : tick;
+    if (!candidate || !PAIRS.includes(candidate.symbol)) return;
+    const price = Number(candidate.mid);
+    if (!valid(price)) return;
+    quotes.set(candidate.symbol,{...candidate,mid:price});
+    render();
+  }
+
+  async function daily() {
+    if (fetchingOpens || Date.now() < suspendedUntil) return;
+    fetchingOpens = true;
     try {
       await Promise.all(PAIRS.map(async code => {
         try {
-          const data = await getJSON(API + "/" + code + "/ohlc?interval=1d&limit=2");
+          const data = await fetchJSON(API+"/"+code+"/ohlc?interval=1d&limit=2");
           if (!Array.isArray(data.bars)) return;
-          const latest = data.bars.find(b => b.isOpen === true) || data.bars[0];
-          if (latest && valid(Number(latest.open))) opens.set(code, Number(latest.open));
-        } catch (_) {
-          // No invented opening price. Show "—" until an open can be fetched.
-        }
+          const bar = data.bars.find(b => b.isOpen === true) || data.bars[0];
+          if (bar && valid(Number(bar.open))) opens.set(code,Number(bar.open));
+        } catch (_) { /* Unknown daily open stays unknown. */ }
       }));
-    } finally { openRunning = false; update(); }
+    } finally { fetchingOpens = false; render(); }
   }
-  async function refreshQuotes() {
-    if (quoteRunning || document.hidden || Date.now() < pausedUntil) return;
-    quoteRunning = true;
+
+  async function poll() {
+    if (disposed || document.hidden || streaming || fetching || Date.now() < suspendedUntil) return;
+    fetching = true;
     try {
-      const qs = PAIRS.map(s => "symbols=" + encodeURIComponent(s)).join("&");
-      const data = await getJSON(API + "/latest?" + qs);
-      // Documented batch shape: {EURUSD: {mid, timestamp, ...}, ...}
-      const mapped = Array.isArray(data) ? Object.fromEntries(data.map(t => [t.symbol, t])) :
+      const query = PAIRS.map(s => "symbols="+encodeURIComponent(s)).join("&");
+      const data = await fetchJSON(API+"/latest?"+query);
+      const batch = Array.isArray(data) ? Object.fromEntries(data.map(t => [t.symbol,t])) :
         (data && typeof data === "object" ? data : {});
       let count = 0;
       for (const code of PAIRS) {
-        const tick = mapped[code];
-        if (tick && valid(Number(tick.mid))) {
-          quotes.set(code, {...tick, mid:Number(tick.mid)});
-          count++;
+        if (batch[code] && valid(Number(batch[code].mid))) {
+          accept(batch[code]); count++;
         }
       }
-      setMessage(count ? "MT5 indicative FX quotes · updates every 15s" : "Quote feed unavailable");
+      setMessage(count ? "Prices received" : "Prices unavailable");
     } catch (_) {
-      setMessage("Quote feed unavailable · retrying");
-      // Explicitly mark previous data stale rather than leaving a green 'live' badge.
-      for (const [key, tick] of quotes) quotes.set(key, {...tick, stale:true});
-    } finally { quoteRunning = false; update(); }
+      setMessage("Prices unavailable");
+      if (!streaming) {
+        for (const [code,tick] of quotes) quotes.set(code,{...tick,stale:true});
+      }
+    } finally { fetching = false; render(); }
   }
-  track.addEventListener("click", event => {
-    const button = event.target.closest("button[data-symbol]");
+
+  async function connect() {
+    try {
+      let signalR = window.signalR;
+      if (!signalR) {
+        const script = document.createElement("script");
+        script.src = "https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js";
+        script.async = true;
+        await new Promise((resolve,reject) => {
+          script.onload = resolve; script.onerror = reject; document.head.appendChild(script);
+        });
+        signalR = window.signalR;
+      }
+      if (!signalR || disposed) return;
+      connection = new signalR.HubConnectionBuilder()
+        .withUrl("https://biquote.io/hubs/tick")
+        .withAutomaticReconnect()
+        .build();
+      connection.on("ReceiveTick",tick => { accept(tick); });
+      connection.onreconnecting(() => { streaming = false; });
+      connection.onreconnected(async () => {
+        if (disposed) return;
+        try { await connection.invoke("Subscribe",PAIRS); streaming = true; }
+        catch (_) { streaming = false; }
+      });
+      connection.onclose(() => { streaming = false; });
+      await connection.start();
+      if (disposed) { await connection.stop(); return; }
+      await connection.invoke("Subscribe",PAIRS);
+      streaming = true;
+      setMessage("Prices received");
+    } catch (_) { streaming = false; } // One-second REST fallback stays active.
+  }
+
+  track.addEventListener("click",event => {
+    const button = event.target.closest("button[data-symbol],button[data-clone-symbol]");
     if (!button || !track.contains(button)) return;
-    const code = button.dataset.symbol;
+    const code = button.dataset.symbol || button.dataset.cloneSymbol;
     if (!PAIRS.includes(code)) return;
     const selector = document.getElementById("heroPairSelect");
     if (selector) {
       selector.value = code;
-      selector.dispatchEvent(new Event("change", {bubbles:true}));
+      selector.dispatchEvent(new Event("change",{bubbles:true}));
     }
   });
-  refreshDailyOpens().then(refreshQuotes);
-  const quoteInterval = setInterval(refreshQuotes, 15000);
-  const openInterval = setInterval(refreshDailyOpens, 20 * 60 * 1000);
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) { refreshQuotes(); refreshDailyOpens(); }
-  });
-  window.addEventListener("pagehide", () => {
-    clearInterval(quoteInterval);
-    clearInterval(openInterval);
-  }, {once:true});
+
+  daily().then(poll);
+  connect();
+  // REST fallback runs once per second whenever WebSocket streaming is down.
+  const interval = setInterval(() => { render(); if (!streaming) poll(); },1000);
+  const openInterval = setInterval(daily,20*60*1000);
+  const resume = () => { if (!document.hidden) { poll(); daily(); } };
+  document.addEventListener("visibilitychange",resume);
+  window.addEventListener("pagehide",() => {
+    disposed = true;
+    clearInterval(interval); clearInterval(openInterval);
+    document.removeEventListener("visibilitychange",resume);
+    if (connection) connection.stop().catch(() => {});
+  },{once:true});
 })();

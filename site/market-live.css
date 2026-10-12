@@ -49,3 +49,19 @@
 .hero-chart-source{margin:9px 4px 0;color:#728199;font-size:11px;line-height:1.4}
 .hero-chart-source a{color:#2962ff;font-weight:700}
 @media(max-width:740px){.precise-ticker-item{min-width:210px;padding:11px 13px}.landing .live-hero .card-head{align-items:flex-start;flex-wrap:wrap;gap:8px}.hero-pair-controls label{display:none}.hero-pair-controls select{padding:7px 22px 7px 8px;font-size:12px}}
+
+/* Compact, endlessly moving Forex tape. Each six-symbol sequence is duplicated by JS. */
+.landing .live-ticker-banner{background:#fff;overflow:hidden}
+.landing .precise-ticker{width:100%;overflow:hidden;scrollbar-width:none;position:relative;background:#fff}
+.landing .precise-ticker-track{display:flex;width:max-content;min-width:0;align-items:stretch;justify-content:flex-start;animation:pipmora-forex-scroll 38s linear infinite;will-change:transform}
+@keyframes pipmora-forex-scroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+.landing .precise-ticker:hover .precise-ticker-track,.landing .precise-ticker:focus-within .precise-ticker-track{animation-play-state:paused}
+.landing .precise-ticker-item{width:230px;min-width:230px;max-width:230px;flex:none;justify-content:flex-start;gap:10px;padding:15px 13px;font-variant-numeric:tabular-nums}
+.landing .precise-ticker-item .precise-rate{font-size:13px}
+.landing .precise-ticker-item .precise-change{font-size:12px}
+.landing .precise-market-state{display:none}
+.ticker-credit{text-align:center;border-top:1px solid #f2f5fa;background:#fff;font-size:10px;line-height:19px;color:#8692a4}
+.ticker-credit a{color:#8896aa;text-decoration:none}
+.ticker-sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+@media (prefers-reduced-motion:reduce){.landing .precise-ticker-track{animation:none}.landing .precise-ticker{overflow-x:auto}}
+@media(max-width:740px){.landing .precise-ticker-item{width:218px;min-width:218px;max-width:218px;padding:13px 12px}}
