@@ -2,7 +2,7 @@
 
 import {useEffect,useRef} from 'react';
 
-type SymbolCode='FX:EURUSD'|'FX:GBPUSD'|'FX:USDJPY';
+type SymbolCode='FX:EURUSD'|'FX:GBPUSD'|'FX:USDJPY'|'FX:USDCHF'|'FX:AUDUSD'|'FX:EURGBP';
 
 export default function LiveForexChart({symbol}:{symbol:SymbolCode}){
   const container=useRef<HTMLDivElement>(null);
