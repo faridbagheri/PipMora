@@ -27,7 +27,8 @@ def test_all_market_widgets_use_valid_provider_configs():
 def test_public_pages_include_logo_and_attribution():
     for page in ("index.html", "markets.html", "lab.html"):
         html = (SITE / page).read_text(encoding="utf-8")
-        assert "pipmora-wordmark.svg" in html\n        assert "pipmora-icon.svg" in html
+        assert "pipmora-wordmark.svg" in html
+        assert "pipmora-icon.svg" in html
         assert "by TradingView" in html
 
 
