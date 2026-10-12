@@ -32,3 +32,47 @@ jobs:
       - run: npm run build
         env:
           NEXT_PUBLIC_API_URL: ""
+  browser-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install backend dependencies
+        run: pip install -r services/api/requirements.txt
+      - name: Install frontend dependencies and Chromium
+        working-directory: apps/web
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+          npm run build
+      - name: Start API and Next.js
+        run: |
+          DATABASE_URL=sqlite:////tmp/pipmora-browser-e2e.sqlite PYTHONPATH=services/api APP_ENV=development uvicorn app.main:app --host 127.0.0.1 --port 8000 >/tmp/pipmora-api.log 2>&1 &
+          cd apps/web
+          API_PROXY_URL=http://127.0.0.1:8000 npm run start >/tmp/pipmora-web.log 2>&1 &
+      - name: Check HTTP readiness
+        run: |
+          for i in $(seq 1 60); do
+            if curl --fail --silent http://127.0.0.1:3000/api/health >/dev/null; then exit 0; fi
+            sleep 2
+          done
+          cat /tmp/pipmora-api.log /tmp/pipmora-web.log
+          exit 1
+      - name: Browser end-to-end smoke test
+        working-directory: apps/web
+        run: npm run test:e2e
+      - name: Upload Playwright diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipmora-e2e-report
+          path: |
+            apps/web/playwright-report
+            apps/web/test-results
+          if-no-files-found: ignore
