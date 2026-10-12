@@ -48,6 +48,7 @@ test('public homepage shows a genuine 5-decimal absolute change and switches liv
 });
 
 test('missing live provider quotes show no fabricated price',async({page})=>{
+  await page.route('https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/**',route=>route.fulfill({status:200,contentType:'application/javascript',body:''}));
   await page.route('https://biquote.io/**',route=>route.abort());
   await page.route('https://s3.tradingview.com/**',route=>route.abort());
   await page.goto(pathToFileURL(resolve(process.cwd(),'../../site/index.html')).href,{waitUntil:'domcontentloaded'});
