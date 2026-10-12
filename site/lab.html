@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080f20"><meta name="description" content="PipMora interactive synthetic Forex paper-trading demonstration.">
+<title>PipMora | Interactive Demo Trading Lab</title>
+<style>
+:root{color-scheme:dark;--bg:#080e1b;--panel:#111c30;--panel2:#16253e;--border:#2a3953;--text:#ecf4ff;--muted:#a5b8d1;--blue:#6296ff;--teal:#46d5c4;--red:#fc8497}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}a{color:inherit;text-decoration:none}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px max(20px,calc((100vw - 1350px)/2));border-bottom:1px solid var(--border);background:#0b1527;flex-wrap:wrap}.brand{font-size:22px;font-weight:850;letter-spacing:-1px}.brand b{color:var(--teal)}.back{font-size:13px;color:var(--muted)}.back:hover{color:white}
+.container{max-width:1390px;padding:28px 24px 70px;margin:auto}.notice{border:1px solid #8b6831;background:#332712;color:#ffdda1;border-radius:10px;padding:10px 16px;font-size:12px;letter-spacing:.015em}
+.top{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin:22px 0}.top h1{font-size:clamp(29px,4vw,44px);letter-spacing:-.045em;line-height:1.2;margin:0}.sub{color:var(--muted);margin:6px 0 0}.pill{background:#173d44;border:1px solid #326e75;border-radius:999px;color:#7be3d7;padding:6px 13px;font-size:11px;font-weight:750;letter-spacing:.09em}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:22px 0}.card{background:linear-gradient(140deg,#15243c,#0f192b);border:1px solid var(--border);border-radius:15px;min-width:0}.metric{padding:16px 20px}.metric span{display:block;color:var(--muted);font-size:12px}.metric strong{display:block;font-size:25px;font-variant-numeric:tabular-nums;letter-spacing:-.035em;margin-top:6px}
+.layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(320px,.83fr);gap:16px}.pad{padding:19px}.row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.title{margin:0;font-size:17px;letter-spacing:-.02em}.muted{color:var(--muted)}.tiny{font-size:12px;color:var(--muted)}.price{font-size:27px;font-weight:800;font-variant-numeric:tabular-nums}.teal{color:var(--teal)}.red{color:var(--red)}
+.toolbar{display:flex;gap:7px;flex-wrap:wrap}.btn{border:1px solid #4c6486;background:#1c304d;color:#e9f3ff;padding:9px 13px;border-radius:9px;font-weight:700;font-size:12px}.btn:hover{border-color:#7bb4ff}.btn.primary{background:#316bef;border-color:#4f91fa}.btn.active{border-color:var(--teal);background:#23485c}.btn.sell{background:#6b283d;border-color:#a84863}.btn:disabled{opacity:.5;cursor:not-allowed}
+.chart{height:315px;display:flex;background:#0b1729;border:1px solid #233852;border-radius:12px;overflow:hidden;margin:14px 0}.chart svg{height:100%;width:100%}.pairstrip{display:flex;gap:9px;margin:16px 0 10px;flex-wrap:wrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:11px}.field{display:flex;flex-direction:column;gap:5px;margin:12px 0}.field label{font-size:12px;color:var(--muted)}input,select,textarea{width:100%;padding:10px 11px;border:1px solid #405575;border-radius:9px;background:#091528;color:var(--text);min-width:0}textarea{resize:vertical;min-height:67px}.error{color:#ffaeac;font-size:12px;min-height:18px}.success{color:#78e4bf;font-size:12px;min-height:18px}.hint{border:1px solid #315a71;border-radius:10px;background:#142d44;padding:12px;color:#bed8e9;font-size:12px;margin-top:12px}.heading{font-weight:800;font-size:13px;letter-spacing:.07em;color:#95aaca;text-transform:uppercase;margin:0 0 12px}
+.tabs{display:flex;gap:8px;margin:20px 0 14px;flex-wrap:wrap}.tabs .btn{font-size:13px}.view[hidden]{display:none}.data{width:100%;border-collapse:collapse;text-align:left;font-size:12px}.data th{color:#9fb3cc;font-weight:600}.data th,.data td{border-bottom:1px solid #2a3a52;padding:12px 8px;vertical-align:top}.data-wrap{overflow:auto}.empty{border:1px dashed #38506b;border-radius:9px;padding:25px;color:var(--muted);text-align:center}.note{border-radius:10px;background:#152f44;border:1px solid #295678;padding:15px;color:#c6deed;line-height:1.7}
+.footer{padding-top:22px;color:var(--muted);font-size:12px}.event{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border)}.event:last-child{border-bottom:0}.event b{font-size:13px}
+@media(max-width:1000px){.layout{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}}@media(max-width:580px){.container{padding:20px 12px 50px}.metrics{gap:8px}.metric{padding:12px}.metric strong{font-size:20px}.chart{height:250px}.grid2{grid-template-columns:1fr}.pad{padding:14px}.data{font-size:11px}}
+</style>
+</head>
+<body>
+<header><a class="brand" href="./index.html">Pip<b>Mora</b></a><a class="back" href="./index.html">← Back to website</a><span class="pill">INTERACTIVE PRODUCT PREVIEW</span></header>
+<div class="container">
+<div class="notice"><strong>SYNTHETIC DEMONSTRATION DATA.</strong> No live market feed, brokerage orders, financial advice, actual AI model or server accounts. Demo positions are saved only in this browser's local storage; this is not the authenticated PipMora application.</div>
+<div class="top"><div><h1>Trade. Reflect. Improve.</h1><p class="sub">Walk through a simulated Forex decision from chart to journal to evidence-led coaching.</p></div><button class="btn" id="reset">Reset demo</button></div>
+<div class="metrics">
+<div class="card metric"><span>Virtual cash balance</span><strong id="balance">$10,000.00</strong></div>
+<div class="card metric"><span>Demo equity</span><strong id="equity">$10,000.00</strong></div>
+<div class="card metric"><span>Realized demo P/L</span><strong id="realized">$0.00</strong></div>
+<div class="card metric"><span>Closed trades</span><strong id="ntrades">0</strong></div>
+</div>
+<div class="layout">
+<section class="card pad" aria-label="Synthetic market">
+<div class="row"><div><h2 class="title" id="pairLabel">EUR/USD</h2><div class="tiny">Reproducible synthetic trading session · not real-time</div></div><div class="row"><strong class="price" id="quote">1.08420</strong><span class="pill">DEMO</span></div></div>
+<div class="pairstrip" id="pairs">
+<button class="btn active" data-pair="EUR/USD">EUR/USD</button><button class="btn" data-pair="GBP/USD">GBP/USD</button><button class="btn" data-pair="USD/JPY">USD/JPY</button>
+</div>
+<div id="chart" class="chart" role="img" aria-label="Synthetic Forex price history"></div>
+<div class="row"><div class="toolbar"><button id="advance" class="btn primary">Advance 1 candle →</button><button id="advanceFive" class="btn">Advance 5 →</button></div><div class="tiny" id="candleTime">Replay candle 18 / 60</div></div>
+<div class="hint">The chart only displays candles that have already occurred in this demonstration. Future synthetic prices and scheduled release outcomes are hidden until you advance the replay.</div>
+<div style="margin-top:20px"><div class="row"><h3 class="heading">Illustrative economic context</h3><span class="pill" id="eventState">Upcoming</span></div><div class="event"><div><b>USD economic announcement (fictional)</b><div class="tiny">Scheduled replay candle 31 · relevant to EUR/USD</div></div><span class="tiny" id="eventOutcome">Not yet released</span></div></div>
+</section>
+<aside class="card pad">
+<h2 class="title">Place a simulated trade</h2><p class="tiny">Orders are simulated locally. Prices include an illustrative spread and may differ from the mid-price chart.</p>
+<form id="order">
+<div class="grid2"><div class="field"><label for="direction">Side</label><select id="direction"><option value="BUY">Buy (long)</option><option value="SELL">Sell (short)</option></select></div><div class="field"><label for="units">Position size (base units)</label><input id="units" type="number" min="1000" max="100000" step="1000" value="10000" required></div></div>
+<div class="grid2"><div class="field"><label for="stop">Stop loss</label><input id="stop" type="number" step="any" required></div><div class="field"><label for="take">Take profit</label><input id="take" type="number" step="any" required></div></div>
+<div class="field"><label for="reason">Your trading rationale (optional)</label><textarea id="reason" maxlength="250" placeholder="What is your plan, and what could invalidate it?"></textarea></div>
+<div class="row"><span class="tiny" id="entryPreview"></span><button class="btn primary" type="submit">Open demo position</button></div><div id="feedback" class="error" role="status"></div>
+</form>
+<div class="hint">Spread is illustrative: 1.2 pips for EUR/USD or GBP/USD; 1.5 pips for USD/JPY. Trades close at the simulated bid/ask. No real orders are sent.</div>
+</aside>
+</div>
+<div class="tabs" role="tablist" aria-label="Trading workspace">
+<button class="btn active" data-tab="positions" role="tab" aria-selected="true">Open positions</button><button class="btn" data-tab="journal" role="tab" aria-selected="false">Trading journal</button><button class="btn" data-tab="coach" role="tab" aria-selected="false">AI Coach preview</button>
+</div>
+<section class="card pad view" id="positions"><h3 class="heading">Open demo positions</h3><div id="openContent"></div></section>
+<section class="card pad view" id="journal" hidden><h3 class="heading">Closed demo trades · stored in this browser</h3><div id="journalContent"></div></section>
+<section class="card pad view" id="coach" hidden><h3 class="heading">Evidence-based educational review (rule-based demo)</h3><div id="coachContent"></div></section>
+<footer class="footer">PipMora — Understand the Market. Learn from Every Trade. Forex trading involves substantial financial risk. Synthetic demonstration results do not indicate real-world performance. <a href="https://github.com/faridbagheri/PipMora" target="_blank" rel="noopener noreferrer" style="color:#89bdff">View the full-stack source on GitHub ↗</a></footer>
+</div>
+<script>
+(function(){
+"use strict";
+var KEY="pipmora.preview.v1",pairs=["EUR/USD","GBP/USD","USD/JPY"],initial={cash:10000,cursor:18,pair:"EUR/USD",open:[],closed:[]};
+function load(){try{var v=JSON.parse(localStorage.getItem(KEY));if(v&&Number.isFinite(v.cash)&&Array.isArray(v.open)&&Array.isArray(v.closed)&&Number.isInteger(v.cursor)&&v.cursor>=18&&v.cursor<=60&&pairs.indexOf(v.pair)!==-1)return v}catch(e){}return JSON.parse(JSON.stringify(initial))}
+var state=load();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+var $=function(id){return document.getElementById(id)};
+var money=function(n){return (n<0?"-":"")+"$"+Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})};
+var f=function(n){return Number(n).toFixed(state.pair==="USD/JPY"?3:5)};
+function mid(pair,t){var base=pair==="EUR/USD"?1.0842:pair==="GBP/USD"?1.3075:149.65;var mult=pair==="USD/JPY"?.011:.000095;return base+mult*(Math.sin(t*.33)*4+Math.sin(t*.81)*2.3+(t-18)*.23+Math.cos(t*.137)*3)}
+function spread(pair){return pair==="USD/JPY"?.015:.00012}
+function mark(pair){return mid(pair,state.cursor)}
+function entry(pair,side){return mark(pair)+(side==="BUY"?1:-1)*spread(pair)/2}
+function exitPrice(p){return mark(p.pair)+(p.side==="BUY"?-1:1)*spread(p.pair)/2}
+function result(p,px){var quote=(px-p.entry)*(p.side==="BUY"?1:-1)*p.units;return p.pair==="USD/JPY"?quote/px:quote}
+function unreal(){return state.open.reduce(function(s,p){return s+result(p,exitPrice(p))},0)}
+function esc(v){return String(v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function setDefaults(){var e=entry(state.pair,$("direction").value),u=state.pair==="USD/JPY"?.15:.0015;var long=$("direction").value==="BUY";$("stop").value=f(e+(long?-u:u));$("take").value=f(e+(long?u*2:-u*2));$("entryPreview").textContent="Illustrative entry: "+f(e)}
+function draw(){var n=state.cursor,pts=[];for(var t=0;t<=n;t++)pts.push(mid(state.pair,t));var lo=Math.min.apply(null,pts),hi=Math.max.apply(null,pts),range=Math.max(hi-lo,.00001),width=820,height=278,pad=35;
+var points=pts.map(function(v,i){return (25+i/(n||1)*(width-50)).toFixed(1)+","+(pad+(hi-v)/range*(height-pad*2)).toFixed(1)}).join(" ");
+var grid="";for(var k=0;k<5;k++)grid+='<line x1="0" x2="'+width+'" y1="'+(pad+k*(height-2*pad)/4)+'" y2="'+(pad+k*(height-2*pad)/4)+'" stroke="#263a58" stroke-dasharray="4 5"/>';
+$("chart").innerHTML='<svg viewBox="0 0 820 278" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="grad" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#397ddb" stop-opacity=".22"/><stop offset="1" stop-color="#397ddb" stop-opacity="0"/></linearGradient></defs>'+grid+'<polyline points="'+points+'" fill="none" stroke="#76b2ff" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><text x="12" y="22" fill="#9cb4d1" font-size="15">Synthetic price history · no future candles</text></svg>';
+$("quote").textContent=f(mark(state.pair));$("pairLabel").textContent=state.pair;$("candleTime").textContent="Replay candle "+n+" / 60";$("advance").disabled=$("advanceFive").disabled=n>=60;
+$("eventState").textContent=n>=31?"Released (fictional)":"Upcoming";$("eventOutcome").textContent=n>=31?"Illustrative result: +0.2%":"Not yet released";
+document.querySelectorAll("[data-pair]").forEach(function(b){b.classList.toggle("active",b.dataset.pair===state.pair)});
+$("balance").textContent=money(state.cash);$("equity").textContent=money(state.cash+unreal());$("realized").textContent=money(state.cash-10000);$("ntrades").textContent=state.closed.length;setDefaults();renderAll()}
+function close(id,reason){var i=state.open.findIndex(function(p){return p.id===id});if(i<0)return;var p=state.open.splice(i,1)[0],px=exitPrice(p),pl=result(p,px);p.exit=px;p.pnl=pl;p.closedAt=state.cursor;p.closeReason=reason;state.cash+=pl;state.closed.unshift(p);save()}
+function advance(count){for(var i=0;i<count&&state.cursor<60;i++){state.cursor++;state.open.slice().forEach(function(p){var px=exitPrice(p),hit=p.side==="BUY"?(px<=p.stop?"Stop loss":px>=p.take?"Take profit":null):(px>=p.stop?"Stop loss":px<=p.take?"Take profit":null);if(hit)close(p.id,hit)})}save();draw()}
+function renderAll(){if(!state.open.length)$("openContent").innerHTML='<div class="empty">No open positions. Choose a currency pair and open a simulated order.</div>';else $("openContent").innerHTML='<div class="data-wrap"><table class="data"><thead><tr><th>Pair / Side</th><th>Entry</th><th>Mark-to-market P/L</th><th>Risk plan</th><th></th></tr></thead><tbody>'+state.open.map(function(p){var pnl=result(p,exitPrice(p));return '<tr><td><b>'+p.pair+" "+p.side+'</b><div class="tiny">'+p.units.toLocaleString("en-US")+' units</div></td><td>'+p.entry.toFixed(p.pair==="USD/JPY"?3:5)+'</td><td class="'+(pnl>=0?"teal":"red")+'">'+money(pnl)+'</td><td>SL '+p.stop+'<div>TP '+p.take+'</div></td><td><button class="btn" data-close="'+p.id+'">Close demo trade</button></td></tr>'}).join("")+'</tbody></table></div>';
+if(!state.closed.length)$("journalContent").innerHTML='<div class="empty">Your journal is empty. Close a demo position to record its actual simulated outcome.</div>';else $("journalContent").innerHTML='<div class="data-wrap"><table class="data"><thead><tr><th>Pair / Side</th><th>Outcome</th><th>Entry → Exit</th><th>Recorded reason</th><th>Exit trigger</th></tr></thead><tbody>'+state.closed.map(function(p){return '<tr><td>'+p.pair+' · '+p.side+'<div class="tiny">'+p.units.toLocaleString("en-US")+' units</div></td><td class="'+(p.pnl>=0?"teal":"red")+'"><b>'+money(p.pnl)+'</b></td><td>'+p.entry.toFixed(p.pair==="USD/JPY"?3:5)+' → '+p.exit.toFixed(p.pair==="USD/JPY"?3:5)+'</td><td>'+esc(p.reason||"No reasoning recorded")+'</td><td>'+esc(p.closeReason)+'</td></tr>'}).join("")+'</tbody></table></div>';
+if(!state.closed.length){$("coachContent").innerHTML='<div class="empty">Insufficient evidence. Close a demo trade to unlock a rule-based review grounded in the journal.</div>';return}
+var wins=state.closed.filter(function(p){return p.pnl>0}),losses=state.closed.filter(function(p){return p.pnl<0}),net=state.closed.reduce(function(s,p){return s+p.pnl},0),last=state.closed[0],planned=Math.abs(last.entry-last.stop),reward=Math.abs(last.take-last.entry),rr=planned>0?reward/planned:0;
+$("coachContent").innerHTML='<div class="grid2"><div class="note"><b>Trade evidence</b><p>The last recorded '+esc(last.pair)+' '+last.side+' position exited via '+esc(last.closeReason.toLowerCase())+' with simulated P/L of <b>'+money(last.pnl)+'</b>. Planned reward-to-risk from entry, stop and target: <b>'+rr.toFixed(2)+':1</b>.</p><p>'+ (last.reason?"Your recorded rationale: “"+esc(last.reason)+"”.":"No rationale was recorded, so the preview cannot evaluate the trade thesis.")+'</p></div><div class="note"><b>Observed sample</b><p><b>'+state.closed.length+'</b> closed trades · <b>'+wins.length+'</b> wins · <b>'+losses.length+'</b> losses · net <b>'+money(net)+'</b>.</p><p>'+ (state.closed.length<10?"This sample is too small for reliable conclusions about trading skill or strategy.":"These synthetic outcomes demonstrate journal-based review only and are not predictive.")+'</p></div></div><p class="tiny">This is a deterministic, educational preview — not a live LLM assessment, signal or prediction. It uses only the trades entered here.</p>'}
+$("openContent").addEventListener("click",function(e){var b=e.target.closest("[data-close]");if(!b)return;close(Number(b.dataset.close),"Manual close");draw()});
+$("order").addEventListener("submit",function(e){e.preventDefault();var side=$("direction").value,units=Number($("units").value),sl=Number($("stop").value),tp=Number($("take").value),px=entry(state.pair,side),long=side==="BUY";var err="";if(state.cursor>=60)err="Replay ended. Reset the demo to place a new order.";else if(!Number.isFinite(units)||units<1000||units>100000)err="Choose 1,000–100,000 base units.";else if(!Number.isFinite(sl)||!Number.isFinite(tp)||sl<=0||tp<=0||(!long&&!(sl>px&&tp<px))||(long&&!(sl<px&&tp>px)))err="For a buy, stop must be below entry and target above; reverse for a sell.";else if(Math.abs(px-sl)*units/(state.pair==="USD/JPY"?px:1)>state.cash*.1)err="Illustrative stop-loss exposure must not exceed 10% of virtual cash.";else if(state.open.length>=5)err="Close a position first (maximum five open).";if(err){$("feedback").textContent=err;return}
+$("feedback").textContent="Simulated position opened and saved in this browser.";state.open.push({id:Date.now()+Math.floor(Math.random()*1000),pair:state.pair,side:side,units:units,entry:px,stop:sl,take:tp,reason:$("reason").value.slice(0,250),openedAt:state.cursor});$("reason").value="";save();draw()});
+$("direction").addEventListener("change",setDefaults);
+document.querySelectorAll("[data-pair]").forEach(function(b){b.addEventListener("click",function(){state.pair=b.dataset.pair;save();draw()})});
+document.querySelectorAll("[data-tab]").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll("[data-tab]").forEach(function(x){x.classList.toggle("active",x===b);x.setAttribute("aria-selected",x===b?"true":"false")});document.querySelectorAll(".view").forEach(function(v){v.hidden=v.id!==b.dataset.tab})})});
+$("advance").addEventListener("click",function(){advance(1)});$("advanceFive").addEventListener("click",function(){advance(5)});
+$("reset").addEventListener("click",function(){if(!confirm("Reset all locally stored simulated positions and journal records?"))return;state=JSON.parse(JSON.stringify(initial));save();$("feedback").textContent="";draw()});
+draw();
+})();
+</script>
+</body></html>
