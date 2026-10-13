@@ -54,9 +54,15 @@
       for (const item of track.querySelectorAll('button[data-symbol="'+code+'"],button[data-clone-symbol="'+code+'"]')) {
         item.querySelector(".precise-rate").textContent = tick && valid(tick.mid) ? fmt(tick.mid) : "—";
         const diff = item.querySelector(".precise-change");
+        const percent = item.querySelector(".precise-percent");
         diff.classList.remove("up","down");
         diff.textContent = change === null ? "—" : (change >= 0 ? "+" : "−") + fmt(Math.abs(change));
         if (change !== null) diff.classList.add(change >= 0 ? "up" : "down");
+        if (percent) {
+          percent.classList.remove("up","down");
+          percent.textContent = change === null ? "—" : "(" + (change >= 0 ? "+" : "−") + (Math.abs(change / open) * 100).toFixed(2) + "%)";
+          if (change !== null) percent.classList.add(change >= 0 ? "up" : "down");
+        }
         const tag = item.querySelector(".precise-market-state");
         if (tag) tag.textContent = ""; // No visible LIVE / indicative badges.
         const state = tick ? (tick.marketState === "closed" ? "Market closed" :
@@ -153,6 +159,8 @@
     if (!button || !track.contains(button)) return;
     const code = button.dataset.symbol || button.dataset.cloneSymbol;
     if (!PAIRS.includes(code)) return;
+    // Once a visitor selects a currency, keep the ticker paused until reload.
+    track.classList.add("ticker-stopped");
     const selector = document.getElementById("heroPairSelect");
     if (selector) {
       selector.value = code;
