@@ -159,8 +159,7 @@
     if (!button || !track.contains(button)) return;
     const code = button.dataset.symbol || button.dataset.cloneSymbol;
     if (!PAIRS.includes(code)) return;
-    // Once a visitor selects a currency, keep the ticker paused until reload.
-    track.classList.add("ticker-stopped");
+    // Clicking selects the chart without interrupting the scrolling market tape.
     const selector = document.getElementById("heroPairSelect");
     if (selector) {
       selector.value = code;
