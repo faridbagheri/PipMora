@@ -39,18 +39,27 @@ test('public homepage shows a genuine 5-decimal absolute change and switches liv
   await expect(page.locator('.precise-market-state')).toHaveCount(0);
   await expect(page.locator('[data-symbol="USDJPY"] .precise-change')).toHaveText('+0.00027');
 
-  // Focus pauses the ticker animation, preserving click stability and keyboard access.
-  await page.locator('[data-symbol="USDJPY"]').focus();
-  await expect.poll(()=>page.locator('[data-symbol="USDJPY"]').evaluate(el=>getComputedStyle(el.parentElement!).animationPlayState)).toBe('paused');
-  await page.locator('[data-symbol="USDJPY"]').click();
-  await expect(page.locator('.precise-ticker-track')).toHaveClass(/ticker-stopped/);
+  // Clicking/focusing a currency must never freeze the running marquee.
+  const ticker=page.locator('.precise-ticker-track');
+  const jpy=page.locator('[data-symbol="USDJPY"]');
+  await jpy.focus();
+  await expect.poll(()=>ticker.evaluate(el=>getComputedStyle(el).animationPlayState)).toBe('running');
+  // The ticker is animated, so dispatch the click to test the same event handler
+  // without waiting for a moving element's position to become stationary.
+  await jpy.dispatchEvent('click');
+  await expect(ticker).not.toHaveClass(/ticker-stopped/);
+  await expect.poll(()=>ticker.evaluate(el=>getComputedStyle(el).animationPlayState)).toBe('running');
+  const before=await ticker.evaluate(el=>getComputedStyle(el).transform);
+  await page.waitForTimeout(400);
+  const after=await ticker.evaluate(el=>getComputedStyle(el).transform);
+  expect(after).not.toBe(before);
   await expect(page.locator('#heroPairSelect')).toHaveValue('USDJPY');
   await expect(page.locator('#heroPairTitle')).toContainText('USD/JPY');
   await expect.poll(()=>page.locator('#heroLiveWidget script').textContent()).toContain('FX:USDJPY|1D');
 
   await page.locator('#heroPairSelect').selectOption('GBPUSD');
   await expect(page.locator('#heroPairTitle')).toContainText('GBP/USD');
-  await expect.poll(()=>page.locator('.precise-ticker-track').evaluate(el=>getComputedStyle(el).animationPlayState)).toBe('paused');
+  await expect.poll(()=>ticker.evaluate(el=>getComputedStyle(el).animationPlayState)).toBe('running');
   await expect.poll(()=>page.locator('#heroLiveWidget script').textContent()).toContain('FX:GBPUSD|1D');
 });
 
