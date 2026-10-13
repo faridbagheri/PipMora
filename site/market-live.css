@@ -55,7 +55,6 @@
 .landing .precise-ticker{width:100%;overflow:hidden;scrollbar-width:none;position:relative;background:#fff}
 .landing .precise-ticker-track{display:flex;width:max-content;min-width:0;align-items:stretch;justify-content:flex-start;animation:pipmora-forex-scroll 38s linear infinite;will-change:transform}
 @keyframes pipmora-forex-scroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
-.landing .precise-ticker:hover .precise-ticker-track,.landing .precise-ticker:focus-within .precise-ticker-track{animation-play-state:paused}
 .landing .precise-ticker-item{width:230px;min-width:230px;max-width:230px;flex:none;justify-content:flex-start;gap:10px;padding:15px 13px;font-variant-numeric:tabular-nums}
 .landing .precise-ticker-item .precise-rate{font-size:13px}
 .landing .precise-ticker-item .precise-change{font-size:12px}
@@ -67,7 +66,6 @@
 @media(max-width:740px){.landing .precise-ticker-item{width:218px;min-width:218px;max-width:218px;padding:13px 12px}}
 
 /* Show percentage alongside five-decimal absolute change; clicking locks marquee in place. */
-.landing .precise-ticker-track.ticker-stopped{animation-play-state:paused!important}
 .landing .precise-percent{font-size:11px;font-weight:700;white-space:nowrap;color:#708097;font-variant-numeric:tabular-nums}
 .landing .precise-percent.up{color:#008a70}
 .landing .precise-percent.down{color:#dd3852}
