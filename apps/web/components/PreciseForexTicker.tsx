@@ -22,7 +22,6 @@ export default function PreciseForexTicker(){
  const [quotes,setQuotes]=useState<Record<string,Tick>>({});
  const [opens,setOpens]=useState<Record<string,number>>({});
  const [now,setNow]=useState(0);
- const [paused,setPaused]=useState(false);
  const running=useRef(false),streaming=useRef(false),blockedUntil=useRef(0);
  useEffect(()=>{
   let active=true;
@@ -110,7 +109,7 @@ export default function PreciseForexTicker(){
 
  return <div className="provider-home-ticker" aria-label="Scrolling Forex currency prices and five-decimal changes">
   <div className="precise-ticker">
-   <div className={"precise-ticker-track"+(paused?" ticker-stopped":"")} role="group" aria-label="Choose a currency pair for the chart">
+   <div className="precise-ticker-track" role="group" aria-label="Choose a currency pair for the chart">
     {[...PAIRS,...PAIRS].map((code,index)=>{
      const duplicated=index>=PAIRS.length,tick=quotes[code],opened=opens[code];
      const timestamp=tick?Date.parse(tick.timestamp||''):NaN;
@@ -120,7 +119,7 @@ export default function PreciseForexTicker(){
       tabIndex={duplicated?-1:undefined} aria-hidden={duplicated?true:undefined}
       type="button" className="precise-ticker-item"
       title={labelFor(code)+' · '+(!tick?'Price unavailable':tick.marketState==='closed'?'Market closed':fresh?'Current quote':'Last known quote')}
-      onClick={()=>{setPaused(true);window.dispatchEvent(new CustomEvent('pipmora:pair-select',{detail:{code}}));}}>
+      onClick={()=>window.dispatchEvent(new CustomEvent('pipmora:pair-select',{detail:{code}}))}>
       <span className="precise-pair">{labelFor(code)}</span>
       <span className="precise-rate">{tick&&good(tick.mid)?fmt(tick.mid):'—'}</span>
       <span className={'precise-change '+(change===null?'':change>=0?'up':'down')}>
