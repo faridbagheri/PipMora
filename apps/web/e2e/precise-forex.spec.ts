@@ -104,3 +104,19 @@ test('all public page footers link to the requested social and contact channels'
     await expect(links.nth(0)).toHaveAttribute('aria-label',/LinkedIn/);
   }
 });
+
+test('Next.js homepage ticker keeps scrolling after choosing a currency',async({page})=>{
+  await page.route('https://biquote.io/**',route=>route.abort());
+  await page.route('https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/**',route=>route.fulfill({status:200,contentType:'application/javascript',body:''}));
+  await page.route('https://s3.tradingview.com/**',route=>route.fulfill({status:200,contentType:'application/javascript',body:''}));
+  await page.goto('/',{waitUntil:'domcontentloaded'});
+  const track=page.locator('.provider-home-ticker .precise-ticker-track');
+  const choice=page.locator('.provider-home-ticker [data-symbol="USDJPY"]');
+  await expect(track).toBeVisible();
+  await choice.focus();
+  await expect.poll(()=>track.evaluate(el=>getComputedStyle(el).animationPlayState)).toBe('running');
+  await choice.dispatchEvent('click');
+  await expect(page.locator('#homeForexPair')).toHaveValue('USDJPY');
+  await expect(track).not.toHaveClass(/ticker-stopped/);
+  await expect.poll(()=>track.evaluate(el=>getComputedStyle(el).animationPlayState)).toBe('running');
+});
