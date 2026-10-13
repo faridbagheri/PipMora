@@ -32,6 +32,8 @@ test('public homepage shows a genuine 5-decimal absolute change and switches liv
   const eur=page.locator('[data-symbol="EURUSD"]');
   await expect(eur.locator('.precise-rate')).toHaveText('1.08527');
   await expect(eur.locator('.precise-change')).toHaveText('+0.00027');
+  await expect(eur.locator('.precise-percent')).toHaveText('(+0.02%)');
+  await expect(page.locator('[data-clone-symbol="EURUSD"] .precise-percent')).toHaveText('(+0.02%)');
   await expect(page.locator('.precise-ticker-item')).toHaveCount(12);
   await expect.poll(()=>eur.evaluate(el=>getComputedStyle(el.parentElement!).animationName)).toContain('pipmora-forex-scroll');
   await expect(page.locator('.precise-market-state')).toHaveCount(0);
@@ -41,12 +43,14 @@ test('public homepage shows a genuine 5-decimal absolute change and switches liv
   await page.locator('[data-symbol="USDJPY"]').focus();
   await expect.poll(()=>page.locator('[data-symbol="USDJPY"]').evaluate(el=>getComputedStyle(el.parentElement!).animationPlayState)).toBe('paused');
   await page.locator('[data-symbol="USDJPY"]').click();
+  await expect(page.locator('.precise-ticker-track')).toHaveClass(/ticker-stopped/);
   await expect(page.locator('#heroPairSelect')).toHaveValue('USDJPY');
   await expect(page.locator('#heroPairTitle')).toContainText('USD/JPY');
   await expect.poll(()=>page.locator('#heroLiveWidget script').textContent()).toContain('FX:USDJPY|1D');
 
   await page.locator('#heroPairSelect').selectOption('GBPUSD');
   await expect(page.locator('#heroPairTitle')).toContainText('GBP/USD');
+  await expect.poll(()=>page.locator('.precise-ticker-track').evaluate(el=>getComputedStyle(el).animationPlayState)).toBe('paused');
   await expect.poll(()=>page.locator('#heroLiveWidget script').textContent()).toContain('FX:GBPUSD|1D');
 });
 
@@ -76,4 +80,18 @@ test('price updates from new real quote samples at one-second fallback cadence',
   const delta=page.locator('[data-symbol="EURUSD"] .precise-change');
   await expect(delta).toHaveText('+0.00027');
   await expect(delta).toHaveText('+0.00029',{timeout:7000});
+});
+
+
+test('all public page footers link to the requested social and contact channels', async({page})=>{
+  await page.route('https://**/*',route=>route.abort());
+  for(const file of ['index.html','markets.html','lab.html']){
+    await page.goto(pathToFileURL(resolve(process.cwd(),'../../site',file)).href,{waitUntil:'domcontentloaded'});
+    const links=page.locator('footer .pm-socials a');
+    await expect(links).toHaveCount(3);
+    await expect(links.nth(0)).toHaveAttribute('href','https://www.linkedin.com/in/farid-bagheri-a67355ba');
+    await expect(links.nth(1)).toHaveAttribute('href','mailto:Farid.bagheri8989@gmail.com');
+    await expect(links.nth(2)).toHaveAttribute('href','https://faridbagheri.github.io/');
+    await expect(links.nth(0)).toHaveAttribute('aria-label',/LinkedIn/);
+  }
 });

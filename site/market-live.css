@@ -65,3 +65,22 @@
 .ticker-sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 @media (prefers-reduced-motion:reduce){.landing .precise-ticker-track{animation:none}.landing .precise-ticker{overflow-x:auto}}
 @media(max-width:740px){.landing .precise-ticker-item{width:218px;min-width:218px;max-width:218px;padding:13px 12px}}
+
+/* Show percentage alongside five-decimal absolute change; clicking locks marquee in place. */
+.landing .precise-ticker-track.ticker-stopped{animation-play-state:paused!important}
+.landing .precise-percent{font-size:11px;font-weight:700;white-space:nowrap;color:#708097;font-variant-numeric:tabular-nums}
+.landing .precise-percent.up{color:#008a70}
+.landing .precise-percent.down{color:#dd3852}
+.landing .precise-ticker-item{width:275px;min-width:275px;max-width:275px;gap:7px}
+.landing .precise-ticker-item .precise-rate{font-size:12px}
+.landing .precise-ticker-item .precise-change{font-size:11px}
+@media(max-width:740px){.landing .precise-ticker-item{width:265px;min-width:265px;max-width:265px;padding:12px 11px}}
+/* Unified linked footer icons on each static PipMora page. */
+.pm-socials{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.pm-socials a{width:39px;height:39px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #63738b;border-radius:11px;color:#d8e4f5;transition:background .15s,border-color .15s;flex-shrink:0}
+.pm-socials a:hover,.pm-socials a:focus-visible{background:#284b88;border-color:#91b6ff;outline-offset:2px}
+.pm-socials svg{width:19px;height:19px;display:block;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.landing .footer .container{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.terminal .footer .pm-socials{margin:15px auto 0;justify-content:center}
+.live-forex-footer{display:flex;justify-content:center;gap:18px;align-items:center;flex-wrap:wrap}
+@media(max-width:650px){.pm-socials{justify-content:center}.landing .footer .container{justify-content:center;text-align:center}}

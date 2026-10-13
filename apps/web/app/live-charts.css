@@ -77,3 +77,19 @@
 .provider-home-ticker .ticker-credit a{color:#8896aa;text-decoration:none}
 @media(prefers-reduced-motion:reduce){.provider-home-ticker .precise-ticker-track{animation:none}.provider-home-ticker .precise-ticker{overflow-x:auto}}
 @media(max-width:740px){.provider-home-ticker .precise-ticker-item{width:218px;min-width:218px;max-width:218px;padding:13px 12px}}
+
+/* Percentage change next to absolute price delta; selection locks marquee in place. */
+.provider-home-ticker .precise-ticker-track.ticker-stopped{animation-play-state:paused!important}
+.provider-home-ticker .precise-percent{color:#73839a;font-size:11px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.provider-home-ticker .precise-percent.up{color:#008a70}
+.provider-home-ticker .precise-percent.down{color:#d53d53}
+.provider-home-ticker .precise-ticker-item{width:275px;min-width:275px;max-width:275px;gap:7px}
+.provider-home-ticker .precise-ticker-item .precise-rate{font-size:12px}
+.provider-home-ticker .precise-ticker-item .precise-change{font-size:11px}
+@media(max-width:740px){.provider-home-ticker .precise-ticker-item{width:265px;min-width:265px;max-width:265px;padding:12px 11px}}
+/* Social links in the Next.js footer. */
+.site-footer .pm-socials{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:10px}
+.site-footer .pm-socials a{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:40px;height:40px;border:1px solid var(--border);border-radius:11px;color:var(--text);background:var(--surface);transition:border-color .15s,background .15s}
+.site-footer .pm-socials a:hover,.site-footer .pm-socials a:focus-visible{border-color:#2962ff;background:var(--surface2);outline-offset:2px}
+.site-footer .pm-socials svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:650px){.site-footer .pm-socials{justify-content:center;margin:20px 0 6px}}
